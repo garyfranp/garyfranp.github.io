@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="contadorApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Mutual Crea</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/darktheme.min.css" rel="stylesheet">
+    <style type="text/css"> body { padding-top: 70px; } </style>
+    <style>
+      .selected { background-color:rgb(70, 69, 69);}
+    </style>
+  </head>
+
+  <body ng-controller="appController">
+
+   
+
+    <div class="container">
+      <div class="jumbotron">
+
+        <h2 class="text-center">Mutual Crea</h2>
+        <h3 class="text-center">Los beneficios de una mutualista con la solidez de un crédito</h3>
+        <h1 class="text-center">$10,000.00</h1>
+        <br><br>
+          <!-- ************************************************************************************************ -->
+          <div class="text-center" ng-if="pantalla==1">
+            <table class="table table-hover table-bordered" >
+            <tr>
+              <th>Numero</th>
+              <th>Fecha:</th>
+              <th>Pago Semanal:</th>
+              <th>Si elijo esta fecha para recibir el efectivo:</th>
+            </tr>
+            <tr ng-repeat="elemento in listaDefechasDisponibles"  ng-class="{selected:elemento.fechaEntrega}">
+              <td >{{elemento.numero}}</td>
+              <td >{{elemento.fecha | date:'dd-MM-yyyy' }} </td>
+              <td >{{elemento.pagoNormal}} </td>
+              <td>
+                <button type="button" class="btn btn-warning" ng-click="crearCalendarioParaVista(elemento)">
+                  &nbsp;Ver calendario >>
+                </button> 
+               </td>  
+            </tr>
+          </table>
+             <BR> <BR>
+          </div>
+          <!-- ************************************************************************************************ ng-if="mostrarTablaDePagos" -->
+
+
+
+        <div ng-if="pantalla==2">
+            <h2 class="text-center">Calendario de pagos</h2>
+            <h3>Tu pago semanal será: <span class="text-primary"> {{datosSeleccionadosPorUsuario[0].montoAPagar}}</span></h3>
+            <h3>Tu fecha de entrega será: <span class="text-primary"> {{datosSeleccionadosPorUsuario[0].fechaElegida | date:'dd-MM-yyyy' }}</span></h3>
+            
+
+          <table class="table table-hover table-bordered">
+            <tr>
+              <th>Numero</th>
+              <th>Fecha</th>
+              <th>Pago semanal</th>
+            </tr>
+            <tr ng-repeat="elemento in calendarioDePagos" ng-class="{ selected: elemento.fechaEntrega }">
+              <td >{{elemento.numero}}</td>
+              <td> {{ elemento.fecha | date:'dd-MM-yyyy' }}  
+                <button type="button" class="btn btn-success btn-sm" ng-if="elemento.fechaEntrega">
+                  <span class="glyphicon glyphicon-hand-left"></span> Dia de entrega
+                </button>
+                
+              </td>
+              <td >{{elemento.pago}} </td>
+            </tr>
+          </table>
+          <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="regresarAlInicio()">
+                  &nbsp; << Regresar
+          </button> 
+          
+           <BR> <BR>
+        </div>
+
+    
+
+    </div><!-- termina jumbotron -->
+  </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="controlador/controlador.js"></script>
+  </body>
+</html>
