@@ -59,7 +59,7 @@
 
 
 
-        <div ng-if="pantalla==2" class="col-sm-12 col-lg-12">
+        <div class="col-sm-12 col-lg-12" ng-if="pantalla==2">
             <h2 class="text-center">Calendario de pagos</h2>
             <h3>Tu pago semanal será: <span class="text-primary"> {{datosSeleccionadosPorUsuario[0].montoAPagar}}</span></h3>
             <h3>Tu fecha de entrega será: <span class="text-primary"> {{datosSeleccionadosPorUsuario[0].fechaElegida | date:'dd-MM-yyyy' }}</span></h3>
