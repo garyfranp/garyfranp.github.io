@@ -2,7 +2,7 @@ var contadorApp = angular.module('contadorApp', []);
 
 // Define the `appController` controller on the `contadorApp` module
 contadorApp.controller('appController', function appController($scope) {
-$scope.pantalla = 1;
+$scope.pantalla = 2;
 $scope.calendarioDePagos = [];
 $scope.datosSeleccionadosPorUsuario = [];
 
