@@ -64,7 +64,7 @@
           <div class="text-center" ng-if="pantalla==1">
             <p> Elije una fecha para recibir el dinero, que se adecúe a tus preferencias, planes y objetivos. Flexibilidad total. </p>
             <select class="form-control" ng-model="prueba"  
-              ng-options="elemento as elemento.fecha for elemento in listaDefechasDisponibles"
+              ng-options="elemento.fecha for elemento in listaDefechasDisponibles"
               ng-change="crearCalendarioParaVista(elemento)">
             </select>
           <!--
