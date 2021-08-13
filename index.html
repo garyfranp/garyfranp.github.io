@@ -101,6 +101,10 @@
 
 
         <div ng-if="pantalla==2">
+		<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="regresarAlInicio()">
+                  &nbsp;<< Regresar y ver otra fecha
+          </button> 
+		<BR> <BR>
             <h2 class="text-center">Calendario de pagos</h2>
             <h3>Tu pago semanal será: </h3>
             <p><span class="text-primary"> {{datosSeleccionadosPorUsuario[0].montoAPagar}}</span></p>
@@ -127,9 +131,7 @@
               <td >{{elemento.pago}} </td>
             </tr>
           </table>
-          <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="regresarAlInicio()">
-                  &nbsp;<< Regresar
-          </button> 
+          
           
            <BR> <BR>
         </div>
