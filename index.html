@@ -74,9 +74,7 @@
        <select class="form-control" ng-model="parametro"
           ng-options="'Entrega - '+ (elemento.fecha | date: 'EEEE d MMMM y') +' - Pagarías: '+ elemento.pagoNormal for elemento in listaDefechasDisponibles"
           ng-change="crearCalendarioParaVista(parametro)">
-          <option value="">---Por favor, selecciona tu fecha---</option>
-
-            </select>
+	       </select>
           <!--
             <table class="table table-hover table-bordered" >
             <tr>
@@ -539,6 +537,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
 ];
 
             $scope.listaDefechasDisponibles = fechasDisponibles;
+	$scope.parametro = $scope.listaDefechasDisponibles[0];
 
 
        var calendarioPorDefecto = [
