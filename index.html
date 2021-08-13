@@ -70,7 +70,7 @@
         </div><br><br> 
             
        <select class="form-control" ng-model="parametro"
-          ng-options="elemento.numero+' - '+(elemento.fecha | date: 'd MMMM yy')+' - Pagarías: '+elemento.pagoNormal for elemento in listaDefechasDisponibles"
+          ng-options="(elemento.fecha | date: 'd MMM yy')+' - Pago: '+elemento.pagoNormal for elemento in listaDefechasDisponibles"
           ng-change="crearCalendarioParaVista(parametro)">
 	       </select>
           <!--
