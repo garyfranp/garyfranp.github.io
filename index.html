@@ -51,7 +51,8 @@
 
     <div class="container">
       <div class="jumbotron">
-
+        <!-- ************************************************************************************************ -->
+       <div class="text-center" ng-if="pantalla==1">
         <h2 class="text-center"> Mutualcrea </h2>
         <h4 class="text-center"> by </h4>
         <div class="panel-heading text-center">
@@ -59,13 +60,21 @@
                     <br>
         </div>
         <h1 class="text-center">$10,000.00</h1>
+         <div class="container" style="text-align: center">
+          <img src="200w.gif" width="110" height="110"> <br>  
+        </div> 
         <br><br>
-          <!-- ************************************************************************************************ -->
-          <div class="text-center" ng-if="pantalla==1">
-            <p> Elije una fecha para recibir el dinero, que se adecúe a tus preferencias, planes y objetivos. Flexibilidad total. </p>
-            <select class="form-control" ng-model="prueba"  
-              ng-options="elemento.fecha for elemento in listaDefechasDisponibles"
-              ng-change="crearCalendarioParaVista(prueba)">
+          
+            <p> Elije una fecha para recibir el dinero, que se adecúe a tus preferencias, planes y objetivos. Se trata de flexibilidad total. </p>
+         <p> 
+         Invierte tu dinero a largo plazo y consigue 0% de comisión por manejo de cuenta, es decir, 
+         si eliges fechas de entrega lejanas obtendrás el servicio sin costo. Planea a futuro y convierte el tiempo en tu mejor aliado.</p>
+            
+       <select class="form-control" ng-model="parametro"
+          ng-options="'Entrega - '+ (elemento.fecha | date: 'EEEE d MMMM y') +' - Pagarías: '+ elemento.pagoNormal for elemento in listaDefechasDisponibles"
+          ng-change="crearCalendarioParaVista(parametro)">
+          <option value="">---Por favor, selecciona tu fecha---</option>
+
             </select>
           <!--
             <table class="table table-hover table-bordered" >
@@ -87,7 +96,7 @@
             </tr>
           </table> 
 -->
-            {{prueba}}
+            
              <BR> <BR>
           </div>
           <!-- ************************************************************************************************ ng-if="mostrarTablaDePagos" -->
@@ -96,8 +105,10 @@
 
         <div ng-if="pantalla==2">
             <h2 class="text-center">Calendario de pagos</h2>
-            <h3>Tu pago semanal será: <span class="text-primary"> {{datosSeleccionadosPorUsuario[0].montoAPagar}}</span></h3>
-            <h3>Tu fecha de entrega será: <span class="text-primary"> {{datosSeleccionadosPorUsuario[0].fechaElegida | date:'dd-MM-yyyy' }}</span></h3>
+            <h3>Tu pago semanal será: </h3>
+            <p><span class="text-primary"> {{datosSeleccionadosPorUsuario[0].montoAPagar}}</span></p>
+            <h3>Tu fecha de entrega será: </h3>
+            <p><span class="text-primary"> {{datosSeleccionadosPorUsuario[0].fechaElegida | date:'dd-MM-yyyy' }}</span></p>
             
 
           <table class="table table-bordered">
@@ -108,11 +119,13 @@
             </tr>
             <tr ng-repeat="elemento in calendarioDePagos" ng-class="{ selected: elemento.fechaEntrega }">
               <td >{{elemento.numero}}</td>
-              <td> {{ elemento.fecha | date:'dd-MM-yyyy' }}  
+              <td> {{ elemento.fecha | date:'dd-MM-yyyy' }} 
+                <span ng-if="elemento.fechaEntrega">Día de entrega &nbsp;<img src="UWVz.gif" style="width:30%"></span>
+                <!--
                 <button type="button" class="btn btn-success btn-sm" ng-if="elemento.fechaEntrega">
                   << Dia de entrega
                 </button>
-                
+                -->
               </td>
               <td >{{elemento.pago}} </td>
             </tr>
@@ -506,53 +519,53 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
             $scope.pantalla = 1;
             $scope.calendarioDePagos = [];
             $scope.datosSeleccionadosPorUsuario = [];
-            $scope.prueba = {};
+            $scope.parametro = [];
 
           var fechasDisponibles = [
-              {"numero":1, "fecha":'2021-08-02',"pagoNormal":'$532.00',"pagoFinal":'$526.00',"seleccionado":false },
-              {"numero":2, "fecha":'2021-08-09',"pagoNormal":'$522.00',"pagoFinal":'$526.00',"seleccionado":false },
-              {"numero":3, "fecha":'2021-08-23',"pagoNormal":'$513.00',"pagoFinal":'$502.00',"seleccionado":false },
-              {"numero":4, "fecha":'2021-09-06',"pagoNormal":'$503.00',"pagoFinal":'$502.00',"seleccionado":false },
-              {"numero":5, "fecha":'2021-09-20',"pagoNormal":'$494.00',"pagoFinal":'$479.00',"seleccionado":false },
-              {"numero":6, "fecha":'2021-10-04',"pagoNormal":'$484.00',"pagoFinal":'$479.00',"seleccionado":false },
-              {"numero":7, "fecha":'2021-10-18',"pagoNormal":'$475.00',"pagoFinal":'$456.00',"seleccionado":false },
-              {"numero":8, "fecha":'2021-11-01',"pagoNormal":'$465.00',"pagoFinal":'$456.00',"seleccionado":false },
-              {"numero":9, "fecha":'2021-11-15',"pagoNormal":'$455.00',"pagoFinal":'$456.00',"seleccionado":false },
-              {"numero":10, "fecha":'2021-11-29',"pagoNormal":'$446.00',"pagoFinal":'$432.00',"seleccionado":false },
-              {"numero":11, "fecha":'2021-12-13',"pagoNormal":'$436.00',"pagoFinal":'$432.00',"seleccionado":false },
-              {"numero":12, "fecha":'2021-12-27',"pagoNormal":"$427.00","pagoFinal":'$409.00',"seleccionado":false },
-              {"numero":13, "fecha":'2022-01-10',"pagoNormal":"$417.00","pagoFinal":'$409.00',"seleccionado":false }
-            ];
+	{"numero":1, "fecha":'2021-09-20',"pagoNormal":'$532.00',"pagoFinal":'$526.00',"seleccionado":false },
+	{"numero":2, "fecha":'2021-09-27',"pagoNormal":'$522.00',"pagoFinal":'$526.00',"seleccionado":false },
+	{"numero":3, "fecha":'2021-10-11',"pagoNormal":'$513.00',"pagoFinal":'$502.00',"seleccionado":false },
+	{"numero":4, "fecha":'2021-10-25',"pagoNormal":'$503.00',"pagoFinal":'$502.00',"seleccionado":false },
+	{"numero":5, "fecha":'2021-11-08',"pagoNormal":'$494.00',"pagoFinal":'$479.00',"seleccionado":false },
+	{"numero":6, "fecha":'2021-11-22',"pagoNormal":'$484.00',"pagoFinal":'$479.00',"seleccionado":false },
+	{"numero":7, "fecha":'2021-12-06',"pagoNormal":'$475.00',"pagoFinal":'$456.00',"seleccionado":false },
+	{"numero":8, "fecha":'2021-12-20',"pagoNormal":'$465.00',"pagoFinal":'$456.00',"seleccionado":false },
+	{"numero":9, "fecha":'2022-01-03',"pagoNormal":'$455.00',"pagoFinal":'$456.00',"seleccionado":false },
+	{"numero":10, "fecha":'2022-01-17',"pagoNormal":'$446.00',"pagoFinal":'$432.00',"seleccionado":false },
+	{"numero":11, "fecha":'2022-01-31',"pagoNormal":'$436.00',"pagoFinal":'$432.00',"seleccionado":false },
+	{"numero":12, "fecha":'2022-02-14 ',"pagoNormal":"$427.00","pagoFinal":'$409.00',"seleccionado":false },
+	{"numero":13, "fecha":'2022-02-28',"pagoNormal":"$417.00","pagoFinal":'$409.00',"seleccionado":false }
+];
 
             $scope.listaDefechasDisponibles = fechasDisponibles;
 
 
-            var calendarioPorDefecto = [
-              {"numero": 1, "fecha":'2021-08-02', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 2, "fecha":'2021-08-09', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 3, "fecha":'2021-08-16', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 4, "fecha":'2021-08-23', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 5, "fecha":'2021-08-30', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 6, "fecha":'2021-09-06', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 7, "fecha":'2021-09-13', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 8, "fecha":'2021-09-20', "pago": "0", "fechaEntrega":false},
-              {"numero": 9, "fecha":'2021-09-27', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 10, "fecha":'2021-10-04', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 11, "fecha":'2021-10-11', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 12, "fecha":'2021-10-18', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 13, "fecha":'2021-10-25', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 14, "fecha":'2021-11-01', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 15, "fecha":'2021-11-08', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 16, "fecha":'2021-11-15', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 17, "fecha":'2021-11-22', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 18, "fecha":'2021-11-29', "pago": "0", "fechaEntrega":false},
-              {"numero": 19, "fecha":'2021-12-06', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 20, "fecha":'2021-12-13', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 21, "fecha":'2021-12-20', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 22, "fecha":'2021-12-27', "pago": "0", "fechaEntrega":false}, 
-              {"numero": 23, "fecha":'2022-01-03', "pago": "0", "fechaEntrega":false},
-              {"numero": 24, "fecha":'2022-01-10', "pago": "0", "fechaEntrega":false} 
-            ];
+       var calendarioPorDefecto = [
+	{"numero": 1, "fecha":'2021-09-20', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 2, "fecha":'2021-09-27', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 3, "fecha":'2021-10-04', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 4, "fecha":'2021-10-11', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 5, "fecha":'2021-10-18', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 6, "fecha":'2021-10-25', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 7, "fecha":'2021-11-01', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 8, "fecha":'2021-11-08', "pago": "0", "fechaEntrega":false},
+	{"numero": 9, "fecha":'2021-11-15', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 10, "fecha":'2021-11-22', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 11, "fecha":'2021-11-29', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 12, "fecha":'2021-12-06', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 13, "fecha":'2021-12-13', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 14, "fecha":'2021-12-20', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 15, "fecha":'2021-12-27', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 16, "fecha":'2022-01-03', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 17, "fecha":'2022-01-10', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 18, "fecha":'2022-01-17', "pago": "0", "fechaEntrega":false},
+	{"numero": 19, "fecha":'2022-01-24', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 20, "fecha":'2022-01-31', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 21, "fecha":'2022-02-07', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 22, "fecha":'2022-02-14', "pago": "0", "fechaEntrega":false}, 
+	{"numero": 23, "fecha":'2022-02-21', "pago": "0", "fechaEntrega":false},
+	{"numero": 24, "fecha":'2022-02-28', "pago": "0", "fechaEntrega":false} 
+];
 
             $scope.crearCalendarioParaVista = function (renglon) {
               cambiarDevista(2);
