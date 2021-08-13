@@ -64,15 +64,13 @@
         <br><br>
           
             <p> Elije una fecha para recibir el dinero, que se adecúe a tus preferencias, planes y objetivos. Se trata de flexibilidad total. </p>
-         <p> 
-         Invierte tu dinero a largo plazo y consigue 0% de comisión por manejo de cuenta, es decir, 
-         si eliges fechas de entrega lejanas obtendrás el servicio sin costo. Planea a futuro y convierte el tiempo en tu mejor aliado.</p>
+         <p> Elige la ultima fecha y obten el servicio sin costo.</p>
 	       <div class="container" style="text-align: center">
           <img src="200w.gif" width="110" height="110"> <br>  
         </div><br><br> 
             
        <select class="form-control" ng-model="parametro"
-          ng-options="'Entrega - '+ (elemento.fecha | date: 'EEEE d MMMM y') +' - Pagarías: '+ elemento.pagoNormal for elemento in listaDefechasDisponibles"
+          ng-options="elemento.numero ' - '+ (elemento.fecha | date: 'd MMMM y') +' - Pagarías: '+ elemento.pagoNormal for elemento in listaDefechasDisponibles"
           ng-change="crearCalendarioParaVista(parametro)">
 	       </select>
           <!--
