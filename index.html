@@ -72,7 +72,7 @@
        <select class="form-control" ng-model="parametro"
           ng-options="elemento.numero+' - '+(elemento.fecha | date: ' d MMM yy')+' - Pago: '+elemento.pagoNormal for elemento in listaDefechasDisponibles"
           ng-change="crearCalendarioParaVista(parametro)">
-	       <option [ngValue]="null" disabled>--Elige una opción--</option>
+	       <option [ngValue]="" disabled>--Elige una opción--</option>
 	       
 	       </select>
           <!--
