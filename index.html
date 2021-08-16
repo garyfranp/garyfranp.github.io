@@ -72,7 +72,7 @@
        <select class="form-control" ng-model="parametro"
           ng-options="elemento.numero+' - '+(elemento.fecha | date: ' d MMM yy')+' - Pago: '+elemento.pagoNormal for elemento in listaDefechasDisponibles"
           ng-change="crearCalendarioParaVista(parametro)">
-	       <option value="">--elige una opción--</option>
+	       <option value="">--Elige una opción--</option>
 	       </select>
           <!--
             <table class="table table-hover table-bordered" >
@@ -542,7 +542,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
 ];
 
             $scope.listaDefechasDisponibles = fechasDisponibles;
-	$scope.parametro = $scope.listaDefechasDisponibles;
+	//$scope.parametro = $scope.listaDefechasDisponibles;
 
 
        var calendarioPorDefecto = [
@@ -573,11 +573,11 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
 ];
 
             $scope.crearCalendarioParaVista = function (renglon) {
-		    //if (!renglon.numero==' ') {
+		    if (!renglon =="") {
               cambiarDevista(2);
               guardarDatosParaLaVista(renglon); 
               $scope.calendarioDePagos = generarUnCalendarioDePagos(renglon);
-			     //};
+			     };
             }
 
             function cambiarDevista (numeroDeVista) {
