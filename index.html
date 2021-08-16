@@ -64,7 +64,11 @@
         <br><br>
           
             <p> Elije una fecha para recibir el dinero, que se adecúe a tus preferencias, planes y objetivos. Se trata de flexibilidad total. </p>
-         <p> Si eliges la última fecha obtendrás el servicio sin costo (convierte la mutualista en Ahorro).</p>
+         <p> Si eliges la última fecha obtendrás el servicio sin costo.</p>
+	       <blockquote>
+  <p>“Gestionar bien el dinero da a la persona libertad e independencia verdadera y además, de forma indirecta, mejora la situación del resto de la Humanidad.”</p>
+  <small><cite title="Nombre Apellidos">Gregorio Hernández Jiménez</cite></small>
+</blockquote>
 	       <div class="container" style="text-align: center">
           <img src="200w.gif" width="110" height="110"> <br>  
         </div><br><br> 
@@ -121,7 +125,8 @@
             <tr ng-repeat="elemento in calendarioDePagos" ng-class="{ selected: elemento.fechaEntrega }">
               <td >{{elemento.numero}}</td>
               <td> {{ elemento.fecha | date:'dd-MM-yyyy' }} 
-                <span ng-if="elemento.fechaEntrega">Día de entrega &nbsp;<img src="UWVz.gif" style="width:30%"></span>
+                <span ng-if="elemento.fechaEntrega">&nbsp; Día de entrega </span>
+		<!--	<img src="UWVz.gif" style="width:30%">  -->
                 <!--
                 <button type="button" class="btn btn-success btn-sm" ng-if="elemento.fechaEntrega">
                   << Dia de entrega
