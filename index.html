@@ -572,7 +572,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
 ];
 
             $scope.crearCalendarioParaVista = function (renglon) {
-		if (!renglon.numero == ' '){
+		if (renglon.numero != ' '){
               cambiarDevista(2);
               guardarDatosParaLaVista(renglon); 
               $scope.calendarioDePagos = generarUnCalendarioDePagos(renglon);
