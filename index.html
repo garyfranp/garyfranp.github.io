@@ -524,6 +524,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
             $scope.parametro = [];
 
           var fechasDisponibles = [
+	{"numero":0, "fecha":'Elige una opción',"pagoNormal":' ',"pagoFinal":'00.00',"seleccionado":false },
 	{"numero":1, "fecha":'2021-09-20',"pagoNormal":'$532.00',"pagoFinal":'$526.00',"seleccionado":false },
 	{"numero":2, "fecha":'2021-09-27',"pagoNormal":'$522.00',"pagoFinal":'$526.00',"seleccionado":false },
 	{"numero":3, "fecha":'2021-10-11',"pagoNormal":'$513.00',"pagoFinal":'$502.00',"seleccionado":false },
@@ -540,7 +541,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
 ];
 
             $scope.listaDefechasDisponibles = fechasDisponibles;
-	$scope.parametro = $scope.listaDefechasDisponibles[12];
+	$scope.parametro = $scope.listaDefechasDisponibles[0];
 
 
        var calendarioPorDefecto = [
@@ -571,9 +572,11 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
 ];
 
             $scope.crearCalendarioParaVista = function (renglon) {
+		    if (renglon.numero!=0) {
 		    cambiarDevista(2);
               guardarDatosParaLaVista(renglon); 
               $scope.calendarioDePagos = generarUnCalendarioDePagos(renglon);
+			    };
 	    }
 
             function cambiarDevista (numeroDeVista) {
