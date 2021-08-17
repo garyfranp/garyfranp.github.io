@@ -70,7 +70,7 @@
         </div><br><br> 
             
        <select class="form-control" ng-model="parametro"
-          ng-options="elemento.numero+' - '+(elemento.fecha | date: 'd MMM yy')+' - Pago: '+elemento.pagoNormal for elemento in listaDefechasDisponibles"
+          ng-options="(elemento.fecha | date: 'd MMM yy')+' - Pago: '+elemento.pagoNormal for elemento in listaDefechasDisponibles"
           ng-change="crearCalendarioParaVista(parametro)">
 	       </select>
           <!--
@@ -571,13 +571,10 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
 ];
 
             $scope.crearCalendarioParaVista = function (renglon) {
-		
-              cambiarDevista(2);
+		    cambiarDevista(2);
               guardarDatosParaLaVista(renglon); 
               $scope.calendarioDePagos = generarUnCalendarioDePagos(renglon);
-		
-			  
-            }
+	    }
 
             function cambiarDevista (numeroDeVista) {
               $scope.pantalla = numeroDeVista;
