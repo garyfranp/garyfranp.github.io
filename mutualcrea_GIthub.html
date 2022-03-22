@@ -1,0 +1,445 @@
+<html lang="en" ng-app="contadorApp">
+  <head>
+    
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Mutualcrea</title>
+    
+    <style type="text/css"> 
+      body { padding-top: 70px; }
+      .selected { background-color:rgb(70, 69, 69);}
+      /* grid layout */
+        .grid {
+          display: grid;
+          grid-gap: 1em;
+          grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+        }
+
+        /* flex layout */
+        .flex {
+          display: flex;
+          flex-direction: column;
+        }
+
+        p {
+          flex: 1;
+        }
+
+        /* presentation */
+        body {
+          font-family: sans-serif;
+        }
+
+        h2 {
+          margin: 0 0 0.5em;
+        }
+
+        h2 a {
+          color: #b44;
+        }
+
+        p {
+          margin: 0 0 1em;
+        }
+
+        span {
+          font-size: 80%;
+          font-weight: bold;
+        }
+
+        .flex {
+          box-shadow: 1px 1px 5px rgba(0,0,0,.3);
+          padding: 1em;
+        }
+    
+    </style>
+
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+  <body ng-controller="appController">
+
+   
+
+    <div class="container">
+      <div class="jumbotron">
+        <!-- ************************************************************************************************ -->
+       
+        <h2 class="text-center"> Mutualcrea </h2>
+        <h4 class="text-center"> by </h4>
+        <div class="panel-heading text-center">
+                    <img src="solucree-logo.png">
+                    <br>
+        </div>
+        <h1 class="text-center">
+             <p> Elije tu monto. </p>
+
+
+
+            <select class="form-control" ng-model="parametro"
+          ng-options="elemento.monto for elemento in listaMontosDisponibles"
+          ng-change="calcularfechasycuotas(parametro.capital)">
+           </select>
+
+
+
+
+
+
+        </h1>
+        </div><!-- termina jumbotron -->
+<!-- 
+        <div ng-repeat="elemento in entregas_disponibles">
+            <div class="container dynamic-grid">
+            <div class="grid-item content-box">
+            <div class="inner">
+              
+                <h1 class="content-box-header">
+                Fecha de entrega {{elemento.fecha}}
+                </h1>
+                <div class="content-box-blurb">
+                <h5>Entrega no. {{elemento.entrega}}</h5>
+                <p> 23 cuotas de {{elemento.cuota_de_reembolso}} + 1 cuota de {{elemento.ultima_cuota_reembolso}} </p>
+                <p>Terminas pagando {{elemento.costo_total}} </p>
+                <br>
+                </div>
+
+               
+              
+            </div>
+            {{elemento}}
+         </div>
+         </div>
+        </div>
+-->
+        <div ng-if="seleccionado">
+            <div class="grid">
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[0].entrega}}</h2>
+                    <h4>{{entregas_disponibles[0].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[0].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[0].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[0].costo_total | currency }}</p>
+                </div>
+
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[1].entrega}}</h2>
+                    <h4>{{entregas_disponibles[1].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[1].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[1].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[1].costo_total | currency }}</p>
+                </div>
+
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[2].entrega}}</h2>
+                    <h4>{{entregas_disponibles[2].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[2].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[2].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[2].costo_total | currency }}</p>
+                </div>
+
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[3].entrega}}</h2>
+                    <h4>{{entregas_disponibles[3].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[3].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[3].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[3].costo_total | currency }}</p>
+                </div>
+
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[4].entrega}}</h2>
+                    <h4>{{entregas_disponibles[4].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[4].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[4].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[4].costo_total | currency }}</p>
+                </div>
+
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[5].entrega}}</h2>
+                    <h4>{{entregas_disponibles[5].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[5].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[5].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[5].costo_total | currency }}</p>
+                </div>
+
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[6].entrega}}</h2>
+                    <h4>{{entregas_disponibles[6].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[6].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[6].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[6].costo_total | currency }}</p>
+                </div>
+
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[7].entrega}}</h2>
+                    <h4>{{entregas_disponibles[7].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[7].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[7].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[7].costo_total | currency }}</p>
+                </div>
+
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[8].entrega}}</h2>
+                    <h4>{{entregas_disponibles[8].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[8].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[8].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[8].costo_total | currency }}</p>
+                </div>
+
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[9].entrega}}</h2>
+                    <h4>{{entregas_disponibles[9].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[9].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[9].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[9].costo_total | currency }}</p>
+                </div>
+
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[10].entrega}}</h2>
+                    <h4>{{entregas_disponibles[10].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[10].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[10].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[10].costo_total | currency }}</p>
+                </div>
+
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[11].entrega}}</h2>
+                    <h4>{{entregas_disponibles[11].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[11].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[11].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[11].costo_total | currency }}</p>
+                </div>
+            
+            </div>
+            <br><br>
+
+            <div class="grid">
+                <div class="flex">
+                    <h2>Fecha {{entregas_disponibles[12].entrega}}</h2>
+                    <h4>{{entregas_disponibles[12].fecha}}</h4>
+                    <p> 23 pagos de {{entregas_disponibles[12].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[12].ultima_cuota_reembolso | currency}}</p>
+                    <p> Terminarías pagando {{entregas_disponibles[12].costo_total | currency }}</p>
+                </div>
+            </div>
+            <br><br>
+            
+        </div>
+          <!--
+        {"entrega":1,"fecha":"lunes 21 marzo 2022","cuota_de_reembolso":532," ultima_cuota_reembolso":526,"costo_total":12762}
+        -->
+
+
+    
+</div><!-- termina container -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<!-- bootstrap components -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- AngularJS v1.7.8 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js" integrity="sha512-28WMav3WUIziq1D5l+8y2BrzN+CJgEeIyLksiKOSHWofTgaZc3RMPzvleRhXbLwnzf/C7Xnb0W6pE8PlqeRSog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- LOCALES AngularJS v1.7.8 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.7.8/angular-locale_es-mx.min.js"></script>
+<!-- Moment.js/2.29.1 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- LOCALES Moment.js/2.29.1 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/es-mx.min.js" integrity="sha512-Qy4cmZ6v7vnVEc0cn/BIj9q15eB98do4hMvu8xtc/H+v+YYpdpDrB35flHS3NPLbZUpe1npSYY/u+Gi3UB61vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  var contadorApp = angular.module('contadorApp', []);
+  // Define the `appController` controller on the `contadorApp` module
+  contadorApp.controller('appController', function appController($scope) {
+
+    var capital_disponible = [
+      {"monto":'$5,000.00', "capital":5000},
+      {"monto":'$10,000.00', "capital":10000},
+      {"monto":'$15,000.00', "capital":15000},
+      {"monto":'$20,000.00', "capital":20000}
+    ];    
+
+    var interes_anual_por_entrega =[
+      {"entrega":1, "interesAnual":60},
+      {"entrega":2, "interesAnual":55},
+      {"entrega":3, "interesAnual":50},
+      {"entrega":4, "interesAnual":45},
+      {"entrega":5, "interesAnual":40},
+      {"entrega":6, "interesAnual":35},
+      {"entrega":7, "interesAnual":30},
+      {"entrega":8, "interesAnual":25},
+      {"entrega":9, "interesAnual":20},
+      {"entrega":10, "interesAnual":15},
+      {"entrega":11, "interesAnual":10},
+      {"entrega":12, "interesAnual":5},
+      {"entrega":13, "interesAnual":0}
+    ];
+
+    var frecuencia_de_pago = [
+      {"tipo":'Diaria', "dias":1},
+      {"tipo":'Semanal', "dias":7},
+      {"tipo":'Quincenal', "dias":15},
+      {"tipo":'Mensual', "dias":30.4},
+      {"tipo":'Bimesual', "dias":60.8},
+      {"tipo":'Trimestral', "dias":91.2},
+      {"tipo":'Semestral', "dias":182.4},
+      {"tipo":'Annual', "dias":365}
+    ];
+
+    var numero_de_cuotas = [12,24];
+
+
+    $scope.seleccionado = false;
+    $scope.listaMontosDisponibles = capital_disponible;
+    $scope.entregas_disponibles = [];
+
+    $scope.calcularfechasycuotas = function (capital) { 
+        $scope.seleccionado = true;
+        $scope.entregas_disponibles = calcular_entregas(capital); 
+    };
+
+
+    function calcular_entregas (capital) {
+
+    var entregas_disponibles = [];
+    var frecuencia_de_pago_en_dias = frecuencia_de_pago[1].dias; // frecuencia de pago semanal
+    var numero_de_cuotas_sem = numero_de_cuotas[1]; // 24 cuotas semanales
+
+    let siguiente_lunes = encontrar_el_siguiente_lunes();
+    var fechas_de_entrega = encontrar_fechas_de_entrega(siguiente_lunes);
+
+      for (var i = 0; i < interes_anual_por_entrega.length; i++) {
+        let entrega = interes_anual_por_entrega[i].entrega;
+        let interes_anual = interes_anual_por_entrega[i].interesAnual;
+        let interes_diario = obtener_interes_diario(interes_anual);
+        
+        let interes_por_plazo = obtener_interes_por_plazo(interes_diario,frecuencia_de_pago_en_dias);
+        let interes_por_num_cuotas = obtener_interes_por_num_cuotas(interes_por_plazo,numero_de_cuotas_sem);
+        let interes_por_plazo_en_porcentaje = obtener_porcentaje(interes_por_num_cuotas);
+        
+        let interes_total = obtener_interes_total_por_capital(capital,interes_por_plazo_en_porcentaje);
+        let interes_por_cuota = obtener_interes_por_cuota (interes_total,numero_de_cuotas_sem);
+        let ajuste_interes_ultima_cuota = obtener_ajuste_interes_ultima_cuota(interes_por_cuota,numero_de_cuotas_sem,interes_total);
+        let interes_ultima_cuota = obtener_interes_ultima_cuota(interes_por_cuota,ajuste_interes_ultima_cuota);
+
+        let capital_por_cuota = obtener_capital_por_cuota(capital, numero_de_cuotas_sem);
+        let ajuste_capital_ultima_cuota = obtener_ajuste_capital_ultima_cuota(capital_por_cuota,numero_de_cuotas_sem,capital);
+        let capital_ultima_cuota = obtener_capital_ultima_cuota(capital_por_cuota,ajuste_capital_ultima_cuota);
+
+
+        let cuota_de_reembolso = obtener_cuota_de_reembolso(capital_por_cuota,interes_por_cuota);
+        let ultima_cuota_reembolso = obtener_ultima_cuota (capital_ultima_cuota,interes_ultima_cuota);
+
+        let costo_total = capital + interes_total; 
+
+
+        entregas_disponibles[i] = {
+        "entrega": i+1,"fecha":fechas_de_entrega[i], "cuota_de_reembolso":cuota_de_reembolso, "ultima_cuota_reembolso": ultima_cuota_reembolso,
+        "costo_total":costo_total
+        };
+      
+      };
+
+      return entregas_disponibles;
+    }
+
+
+    function encontrar_el_siguiente_lunes () {
+      var fecha_actual = moment();
+      //dom 0,lun 1, mar 2, mie 3, jue 4, vie 5 sab 6
+      var dia_de_la_fecha = fecha_actual.day(); 
+      while ( dia_de_la_fecha != 1 ){
+        fecha_actual = fecha_actual.add(1,'days');
+        dia_de_la_fecha = fecha_actual.day();
+      };
+      var lunes_mas_cercano = fecha_actual.format("YYYY-MM-DD"); 
+      return lunes_mas_cercano;
+    }
+
+    function encontrar_fechas_de_entrega (fecha_de_inicio) {
+      var fechas_de_entrega = [];
+      var inicio = moment(fecha_de_inicio);
+      var siguiente_fecha_de_entrega = moment();
+
+      fechas_de_entrega[0] = inicio.format("dddd DD MMMM YYYY");
+      siguiente_fecha_de_entrega = inicio.clone().add(7,'days');
+      fechas_de_entrega[1] = siguiente_fecha_de_entrega.format("dddd DD MMMM YYYY");
+      siguiente_fecha_de_entrega = siguiente_fecha_de_entrega.clone();
+
+      for (var i = 2; i < 13; i++) {
+        siguiente_fecha_de_entrega = siguiente_fecha_de_entrega.add(14,'days');
+        fechas_de_entrega[i] = siguiente_fecha_de_entrega.format("dddd DD MMMM YYYY");
+      };
+      return fechas_de_entrega;
+    }
+
+    function obtener_interes_diario (interes_anual) {
+      let interes_diario = interes_anual / 365;
+      return interes_diario;
+    }
+
+    function obtener_interes_por_plazo (interes_diario,numero_de_dias) {
+      let interes_por_plazo = interes_diario * numero_de_dias;
+      return interes_por_plazo;
+    }
+
+    function obtener_interes_por_num_cuotas (interes_por_plazo,numero_de_cuotas) {
+      let interes_por_num_cuotas = interes_por_plazo * numero_de_cuotas;
+      return interes_por_num_cuotas;
+    }
+
+    function obtener_porcentaje (cantidad) {
+      let porcentaje = cantidad / 100;
+      return porcentaje;
+    }
+
+    function obtener_interes_total_por_capital (capital,porcentaje_de_interes) {
+      let interes_total_por_capital = Math.round( capital * porcentaje_de_interes );
+      return interes_total_por_capital;
+    }
+
+    function obtener_interes_por_cuota (interes_total_por_capital,numero_de_cuotas) {
+      let interes_por_cuota = Math.round( interes_total_por_capital / numero_de_cuotas );
+      return interes_por_cuota;
+    }
+
+    function obtener_capital_por_cuota (capital, numero_de_cuotas) {
+      let capital_por_cuota = Math.round( capital / numero_de_cuotas );
+      return capital_por_cuota;
+    }
+
+    function obtener_cuota_de_reembolso (capital_por_cuota,interes_por_cuota) {
+      let cuota_de_reembolso = capital_por_cuota + interes_por_cuota;
+      return cuota_de_reembolso;
+    }
+
+    function obtener_ajuste_interes_ultima_cuota (interes_por_cuota,numero_de_cuotas,interes_total_por_capital) {
+      let ajuste_ultimo_interes = (interes_por_cuota * numero_de_cuotas ) - interes_total_por_capital;
+      return ajuste_ultimo_interes;
+    }
+
+    function obtener_ajuste_capital_ultima_cuota (capital_por_cuota,numero_de_cuotas,capital) {
+      let ajuste_ultimo_capital = (capital_por_cuota * numero_de_cuotas) - capital;
+      return ajuste_ultimo_capital;
+    }
+
+    function obtener_interes_ultima_cuota (interes_por_cuota,ajuste_interes_ultima_cuota) {
+      let interes_ultima_cuota = interes_por_cuota - ajuste_interes_ultima_cuota;
+      return interes_ultima_cuota;
+    }
+
+    function obtener_capital_ultima_cuota (capital_por_cuota,ajuste_capital_ultima_cuota) {
+      let capital_ultima_cuota = capital_por_cuota - ajuste_capital_ultima_cuota;
+      return capital_ultima_cuota;
+    }
+
+    function obtener_ultima_cuota (capital_ultima_cuota,interes_ultima_cuota) {
+      let ultima_cuota = capital_ultima_cuota + interes_ultima_cuota;
+      return ultima_cuota;
+    }
+
+});//termina controlador
+
+</script>
+
+ 
+    
+  </body>
+</html>
