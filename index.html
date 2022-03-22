@@ -301,9 +301,14 @@
     var entregas_disponibles = [];
     var frecuencia_de_pago_en_dias = frecuencia_de_pago[1].dias; // frecuencia de pago semanal
     var numero_de_cuotas_sem = numero_de_cuotas[1]; // 24 cuotas semanales
-
-    let siguiente_lunes = encontrar_el_siguiente_lunes();
-    var fechas_de_entrega = encontrar_fechas_de_entrega(siguiente_lunes);
+    
+     //Aqui se calculan cada lunes----------
+    //let siguiente_lunes = encontrar_el_siguiente_lunes();
+    //var fechas_de_entrega = encontrar_fechas_de_entrega(siguiente_lunes);
+     
+      //Aqui se calculan el ultimo lunes de cada mes----------
+     let ultimo_lunes_de_cada_mes = encontrar_el_ultimo_lunes_de_cada_mes();
+    var fechas_de_entrega = encontrar_fechas_de_entrega(ultimo_lunes_de_cada_mes);
 
       for (var i = 0; i < interes_anual_por_entrega.length; i++) {
         let entrega = interes_anual_por_entrega[i].entrega;
@@ -352,6 +357,24 @@
       var lunes_mas_cercano = fecha_actual.format("YYYY-MM-DD"); 
       return lunes_mas_cercano;
     }
+    
+    function encontrar_el_ultimo_lunes_de_cada_mes () {
+      var fecha_actual = moment();
+      var dias_en_el_mes = moment().daysInMonth(); // 31
+      var dia_del_mes = fecha_actual.date();//1 to 31
+
+     for (dia_del_mes ; dia_del_mes < dias_en_el_mes; dia_del_mes++) {
+         fecha_actual = fecha_actual.add(1,'days');
+     };
+     var dia_de_la_fecha = fecha_actual.day();
+     while ( dia_de_la_fecha != 1 ){
+        fecha_actual = fecha_actual.subtract(1,'days');
+        dia_de_la_fecha = fecha_actual.day();
+      };
+      var ultimo_lunes_de_cada_mes = fecha_actual.format("YYYY-MM-DD"); 
+      return ultimo_lunes_de_cada_mes;
+    }
+    
 
     function encontrar_fechas_de_entrega (fecha_de_inicio) {
       var fechas_de_entrega = [];
