@@ -58,6 +58,11 @@
           box-shadow: 1px 1px 5px rgba(0,0,0,.3);
           padding: 1em;
         }
+
+        .responsive {
+            width: 100%;
+            height: auto;
+        }
     
     </style>
 
@@ -73,14 +78,13 @@
     <div class="container">
       <div class="jumbotron">
         <!-- ************************************************************************************************ -->
-       
+       <!--  
         <h2 class="text-center"> Mutualcrea </h2>
         <h4 class="text-center"> by </h4>
         <div class="panel-heading text-center">
                     <img src="solucree-logoGITHUb.png">
                     <br>
         </div>
-        <br><br>
         <h5 class="text-center">
             <p> Plazo de 24 semanas, dentro de este periodo puedes elegir el número de entrega que se adecúe a tus planes y necesidades. </p>
         </h5>
@@ -95,6 +99,24 @@
               ng-change="calcularfechasycuotas(parametro.capital)">
             </select>
         </h3>
+        -->
+        <div class="panel-heading text-center">
+            <img src="diagrama_mutualcrea1.png" class="responsive">  
+        </div>
+        <h5 class="text-center">
+            <p> Elije una fecha para recibir el dinero, que se adecúe a tus preferencias, planes y obetivos. Flexibilidad Total. </p>
+        </h5>
+        <h2 class="text-center">
+            <p> El próximo inicio será el {{ultimo_lunes_de_cada_mes}} </p>
+        </h2>
+        <h3 class="text-center">
+            <p> Cotiza un monto </p>
+            <select class="form-control" ng-model="parametro"
+              ng-options="elemento.monto for elemento in listaMontosDisponibles"
+              ng-change="calcularfechasycuotas(parametro.capital)">
+            </select>
+        </h3>
+
 
         </div><!-- termina jumbotron -->
 <!-- 
