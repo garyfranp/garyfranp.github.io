@@ -80,22 +80,21 @@
                     <img src="solucree-logoGITHUb.png">
                     <br>
         </div>
-        <h1 class="text-center">
-             <p> Elije tu monto. </p>
-
-
-
+        <h5 class="text-center">
+            <p> Plazo de 24 semanas, dentro de este periodo puedes elegir el número de entrega que se adecúe a tus planes y necesidades. </p>
+        </h5>
+      
+        <h2 class="text-center">
+            <p> El próximo inicio será el {{ultimo_lunes_de_cada_mes}} </p>
+        </h2>
+        <h3 class="text-center">
+            <p> Elije tu monto </p>
             <select class="form-control" ng-model="parametro"
-          ng-options="elemento.monto for elemento in listaMontosDisponibles"
-          ng-change="calcularfechasycuotas(parametro.capital)">
-           </select>
+              ng-options="elemento.monto for elemento in listaMontosDisponibles"
+              ng-change="calcularfechasycuotas(parametro.capital)">
+            </select>
+        </h3>
 
-
-
-
-
-
-        </h1>
         </div><!-- termina jumbotron -->
 <!-- 
         <div ng-repeat="elemento in entregas_disponibles">
@@ -122,89 +121,105 @@
         </div>
 -->
         <div ng-if="seleccionado">
+            
             <div class="grid">
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[0].entrega}}</h2>
-                    <h4>{{entregas_disponibles[0].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[0].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[0].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[0].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[0].entrega}}</h2>
+                    
+                    <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[0].cuota_de_reembolso | currency}} </b> </p>
+                    <p> Inicia el: {{entregas_disponibles[0].inicio }} </p>
+                    
+                    <p> Termina el: {{entregas_disponibles[0].fin_de_plazo}} </p>
+                    <p> Fecha de entrega:  <b> {{entregas_disponibles[0].fecha}} </b> </p>    
                 </div>
 
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[1].entrega}}</h2>
-                    <h4>{{entregas_disponibles[1].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[1].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[1].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[1].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[1].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[1].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[1].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[1].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[1].fecha}} </b> </p>
                 </div>
 
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[2].entrega}}</h2>
-                    <h4>{{entregas_disponibles[2].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[2].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[2].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[2].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[2].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[2].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[2].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[2].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[2].fecha}} </b> </p>  
                 </div>
 
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[3].entrega}}</h2>
-                    <h4>{{entregas_disponibles[3].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[3].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[3].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[3].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[3].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[3].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[3].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[3].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[3].fecha}} </b> </p> 
                 </div>
 
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[4].entrega}}</h2>
-                    <h4>{{entregas_disponibles[4].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[4].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[4].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[4].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[4].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[4].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[4].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[4].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[4].fecha}} </b> </p> 
                 </div>
 
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[5].entrega}}</h2>
-                    <h4>{{entregas_disponibles[5].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[5].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[5].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[5].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[5].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[5].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[5].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[5].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[5].fecha}} </b> </p>
                 </div>
 
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[6].entrega}}</h2>
-                    <h4>{{entregas_disponibles[6].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[6].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[6].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[6].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[6].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[6].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[6].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[6].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[6].fecha}} </b> </p>
                 </div>
 
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[7].entrega}}</h2>
-                    <h4>{{entregas_disponibles[7].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[7].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[7].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[7].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[7].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[7].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[7].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[7].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[7].fecha}} </b> </p>
                 </div>
 
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[8].entrega}}</h2>
-                    <h4>{{entregas_disponibles[8].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[8].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[8].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[8].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[8].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[8].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[8].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[8].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[8].fecha}} </b> </p>
                 </div>
 
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[9].entrega}}</h2>
-                    <h4>{{entregas_disponibles[9].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[9].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[9].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[9].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[9].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[9].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[9].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[9].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[9].fecha}} </b> </p>
                 </div>
 
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[10].entrega}}</h2>
-                    <h4>{{entregas_disponibles[10].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[10].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[10].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[10].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[10].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[10].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[10].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[10].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[10].fecha}} </b> </p>
                 </div>
 
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[11].entrega}}</h2>
-                    <h4>{{entregas_disponibles[11].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[11].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[11].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[11].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[11].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[11].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[11].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[11].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[11].fecha}} </b> </p> 
+                    
                 </div>
             
             </div>
@@ -212,10 +227,11 @@
 
             <div class="grid">
                 <div class="flex">
-                    <h2>Fecha {{entregas_disponibles[12].entrega}}</h2>
-                    <h4>{{entregas_disponibles[12].fecha}}</h4>
-                    <p> 23 pagos de {{entregas_disponibles[12].cuota_de_reembolso | currency}} + 1 pago de {{entregas_disponibles[12].ultima_cuota_reembolso | currency}}</p>
-                    <p> Terminarías pagando {{entregas_disponibles[12].costo_total | currency }}</p>
+                    <h2> Entrega {{entregas_disponibles[12].entrega}}</h2>
+                     <p> Plazo: 24 pagos semanales de <b>{{entregas_disponibles[12].cuota_de_reembolso | currency}} </b> </p>
+                     <p> Inicia el: {{entregas_disponibles[12].inicio }} </p>
+                     <p> Termina el: {{entregas_disponibles[12].fin_de_plazo}} </p>
+                     <p> Fecha de entrega:  <b> {{entregas_disponibles[12].fecha}} </b> </p>
                 </div>
             </div>
             <br><br>
@@ -290,6 +306,9 @@
     $scope.listaMontosDisponibles = capital_disponible;
     $scope.entregas_disponibles = [];
 
+        let inicio = encontrar_el_ultimo_lunes_de_cada_mes();
+        $scope.ultimo_lunes_de_cada_mes = moment(inicio).format("dddd DD MMMM YYYY");
+
     $scope.calcularfechasycuotas = function (capital) { 
         $scope.seleccionado = true;
         $scope.entregas_disponibles = calcular_entregas(capital); 
@@ -301,13 +320,9 @@
     var entregas_disponibles = [];
     var frecuencia_de_pago_en_dias = frecuencia_de_pago[1].dias; // frecuencia de pago semanal
     var numero_de_cuotas_sem = numero_de_cuotas[1]; // 24 cuotas semanales
-    
-     //Aqui se calculan cada lunes----------
+
     //let siguiente_lunes = encontrar_el_siguiente_lunes();
-    //var fechas_de_entrega = encontrar_fechas_de_entrega(siguiente_lunes);
-     
-      //Aqui se calculan el ultimo lunes de cada mes----------
-     let ultimo_lunes_de_cada_mes = encontrar_el_ultimo_lunes_de_cada_mes();
+    let ultimo_lunes_de_cada_mes = encontrar_el_ultimo_lunes_de_cada_mes();
     var fechas_de_entrega = encontrar_fechas_de_entrega(ultimo_lunes_de_cada_mes);
 
       for (var i = 0; i < interes_anual_por_entrega.length; i++) {
@@ -332,12 +347,15 @@
         let cuota_de_reembolso = obtener_cuota_de_reembolso(capital_por_cuota,interes_por_cuota);
         let ultima_cuota_reembolso = obtener_ultima_cuota (capital_ultima_cuota,interes_ultima_cuota);
 
-        let costo_total = capital + interes_total; 
+        let costo_total = capital + interes_total;
+
+        let fecha_final_del_plazo = obtener_la_fecha_final_del_plazo(ultimo_lunes_de_cada_mes,numero_de_cuotas_sem); 
+        let inicio = moment(ultimo_lunes_de_cada_mes).format("dddd DD MMMM YYYY");
 
 
         entregas_disponibles[i] = {
         "entrega": i+1,"fecha":fechas_de_entrega[i], "cuota_de_reembolso":cuota_de_reembolso, "ultima_cuota_reembolso": ultima_cuota_reembolso,
-        "costo_total":costo_total
+        "costo_total":costo_total,"inicio":inicio, "fin_de_plazo":fecha_final_del_plazo
         };
       
       };
@@ -357,7 +375,7 @@
       var lunes_mas_cercano = fecha_actual.format("YYYY-MM-DD"); 
       return lunes_mas_cercano;
     }
-    
+
     function encontrar_el_ultimo_lunes_de_cada_mes () {
       var fecha_actual = moment();
       var dias_en_el_mes = moment().daysInMonth(); // 31
@@ -374,7 +392,8 @@
       var ultimo_lunes_de_cada_mes = fecha_actual.format("YYYY-MM-DD"); 
       return ultimo_lunes_de_cada_mes;
     }
-    
+
+
 
     function encontrar_fechas_de_entrega (fecha_de_inicio) {
       var fechas_de_entrega = [];
@@ -456,6 +475,17 @@
     function obtener_ultima_cuota (capital_ultima_cuota,interes_ultima_cuota) {
       let ultima_cuota = capital_ultima_cuota + interes_ultima_cuota;
       return ultima_cuota;
+    }
+
+    function obtener_la_fecha_final_del_plazo (fecha_de_inicio,plazo) {
+      
+        var inicio = moment(fecha_de_inicio).clone();
+        var fecha_final_del_plazo = moment();
+        var plazo = plazo - 1;
+        for (var i = 0; i < plazo; i++) { fecha_final_del_plazo = inicio.add(7,'days'); };
+
+        fecha_final_del_plazo = fecha_final_del_plazo.format("dddd DD MMMM YYYY");
+        return fecha_final_del_plazo;
     }
 
 });//termina controlador
