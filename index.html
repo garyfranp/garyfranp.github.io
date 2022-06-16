@@ -99,21 +99,55 @@
               ng-change="calcularfechasycuotas(parametro.capital)">
             </select>
         </h3>
+
+          file:///C:/Users/rpimentel/Desktop/converts/demo1.mp4
         -->
-        <div class="panel-heading text-center">
-            <img src="diagrama_mutualcrea1.png" class="responsive">  
+
+    
+          
+
+
+
+
+
+
+<!--
+  <source src="../motualcrea_github/actualizacion marzo 22/video.mp4" type="video/mp4">
+    -->
+
+
+        <div class="text-center"> 
+          <img src="logo_.png" class="responsive">
+            <!--<img src="diagrama_mutualcrea1.png" class="responsive"> -->  
+
         </div>
+        
+
+          
+
+
         <h5 class="text-center">
             <p> Elije una fecha para recibir el dinero, que se adecúe a tus preferencias, planes y objetivos. Flexibilidad Total. </p>
         </h5>
         <h2 class="text-center">
             <p> El próximo inicio será el {{ultimo_lunes_de_cada_mes}} </p>
         </h2>
+
+        <div class="text-center">
+            <video width="320" height="240" controls>
+              <source src="video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+          </div>
+
+
+          <br><br><br>
         <h3 class="text-center">
-            <p> Cotiza un monto </p>
+            <p> Cotiza aquí </p>
             <select class="form-control" ng-model="parametro"
               ng-options="elemento.monto for elemento in listaMontosDisponibles"
               ng-change="calcularfechasycuotas(parametro.capital)">
+              <option value=""> -- Selecciona una cantidad -- </option>
             </select>
         </h3>
 
@@ -292,9 +326,7 @@
       {"monto":'$5,000.00', "capital":5000},
       {"monto":'$10,000.00', "capital":10000},
       {"monto":'$15,000.00', "capital":15000},
-      {"monto":'$20,000.00', "capital":20000},
-      {"monto":'$25,000.00', "capital":25000},
-      {"monto":'$30,000.00', "capital":30000}
+      {"monto":'$20,000.00', "capital":20000}
     ];    
 
     var interes_anual_por_entrega =[
@@ -335,8 +367,19 @@
         $scope.ultimo_lunes_de_cada_mes = moment(inicio).format("dddd DD MMMM YYYY");
 
     $scope.calcularfechasycuotas = function (capital) { 
+      let ah = typeof capital;
+
+      //if (capital != 0 || capital != "" || typeof capital !== "undefined" ) {
+
+      if (typeof capital === 'undefined' ) {  
+        $scope.seleccionado = false;
+      }else{
         $scope.seleccionado = true;
-        $scope.entregas_disponibles = calcular_entregas(capital); 
+        $scope.entregas_disponibles = calcular_entregas(capital);
+        
+      };
+      
+        
     };
 
 
