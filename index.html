@@ -363,7 +363,8 @@
     $scope.listaMontosDisponibles = capital_disponible;
     $scope.entregas_disponibles = [];
 
-        let inicio = encontrar_el_ultimo_lunes_de_cada_mes();
+       // let inicio = encontrar_el_ultimo_lunes_de_cada_mes();
+       let inicio = encontrar_el_siguiente_lunes();
         $scope.ultimo_lunes_de_cada_mes = moment(inicio).format("dddd DD MMMM YYYY");
 
     $scope.calcularfechasycuotas = function (capital) { 
@@ -390,7 +391,8 @@
     var numero_de_cuotas_sem = numero_de_cuotas[1]; // 24 cuotas semanales
 
     //let siguiente_lunes = encontrar_el_siguiente_lunes();
-    let ultimo_lunes_de_cada_mes = encontrar_el_ultimo_lunes_de_cada_mes();
+    //let ultimo_lunes_de_cada_mes = encontrar_el_ultimo_lunes_de_cada_mes();
+    let ultimo_lunes_de_cada_mes = encontrar_el_siguiente_lunes();
     var fechas_de_entrega = encontrar_fechas_de_entrega(ultimo_lunes_de_cada_mes);
 
       for (var i = 0; i < interes_anual_por_entrega.length; i++) {
