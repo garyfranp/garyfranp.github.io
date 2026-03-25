@@ -8,43 +8,45 @@
     <meta name="apple-mobile-web-app-title" content="La Ultima">
     <link rel="apple-touch-icon" href="tester2.png">
     
-    <title>La Última Librería - Admin</title>
+    <title>La Última Librería - Admin Pro</title>
     <style>
         :root { --p: #1a1a1a; --s: #27ae60; --err: #c0392b; --info: #2980b9; --bg: #fdfdfd; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: "Courier New", Courier, monospace; background: var(--bg); margin: 0; padding: 10px; color: #1a1a1a; }
+        body { font-family: "Courier New", Courier, monospace; background: var(--bg); margin: 0; padding: env(safe-area-inset-top) 10px 20px 10px; color: #1a1a1a; }
 
-        /* Encabezado con tu Logo */
-        .header { text-align: center; padding: 20px 0; border-bottom: 2px solid var(--p); margin-bottom: 20px; }
-        .logo-img { width: 120px; height: auto; }
+        /* Encabezado */
+        .header { text-align: center; padding: 15px 0; border-bottom: 2px solid var(--p); margin-bottom: 15px; }
+        .logo-img { width: 100px; height: auto; }
 
-        /* Stats estilo Minimalista */
-        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        .stat-card { border: 1.5px solid var(--p); padding: 10px; border-radius: 4px; text-align: center; background: white; }
+        /* Stats estilo iPhone 6s */
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 15px; }
+        .stat-card { border: 1.5px solid var(--p); padding: 10px; border-radius: 8px; text-align: center; background: white; }
         .stat-card span { display: block; font-size: 1.1rem; font-weight: bold; }
         .stat-card small { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Contenedores */
-        .card { background: white; padding: 15px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; }
-        h3 { margin: 0 0 12px 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; border-left: 4px solid var(--p); padding-left: 10px; }
+        /* Cards y Form */
+        .card { background: white; padding: 15px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        h3 { margin: 0 0 12px 0; font-size: 0.85rem; text-transform: uppercase; border-left: 4px solid var(--p); padding-left: 10px; }
         
-        input { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; font-family: inherit; }
+        input { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; font-family: inherit; background: #fafafa; }
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         
         /* Botones */
-        .btn { padding: 14px; border: none; border-radius: 4px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 8px; font-family: inherit; text-transform: uppercase; }
+        .btn { padding: 14px; border: none; border-radius: 6px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 8px; font-family: inherit; text-transform: uppercase; }
         .btn-p { background: var(--p); color: white; }
         .btn-s { background: var(--s); color: white; }
-        .btn-action { padding: 6px; font-size: 1.2rem; border-radius: 4px; border: 1px solid #ddd; background: #fff; margin: 2px; }
+        .btn-action { padding: 8px; font-size: 1.1rem; border-radius: 5px; border: 1px solid #ddd; background: #fff; margin: 2px; }
 
-        /* Tablas */
-        .table-area { overflow-x: auto; background: white; border: 1px solid #eee; border-radius: 4px; }
-        table { width: 100%; border-collapse: collapse; min-width: 650px; }
-        th { background: #f0f0f0; padding: 10px; font-size: 0.65rem; text-align: left; }
+        /* Tablas con Scroll */
+        .scroll-area { overflow-x: auto; background: white; border: 1px solid #eee; border-radius: 6px; max-height: 400px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th { background: #f0f0f0; padding: 10px; font-size: 0.65rem; text-align: left; position: sticky; top: 0; }
         td { padding: 10px; border-top: 1px solid #eee; font-size: 0.8rem; }
-        .td-edit { width: 100%; border: none; background: transparent; font-family: inherit; font-size: 0.8rem; }
+        .td-edit { width: 100%; border: none; background: transparent; font-family: inherit; font-size: 0.8rem; padding: 4px; }
+        .td-edit:focus { background: #fffde7; outline: 1px solid var(--info); }
 
-        .pre-view { background: #f9f9f9; border: 2px dashed var(--p); padding: 15px; border-radius: 4px; margin-top: 10px; }
+        .pre-view { background: #f9f9f9; border: 2px dashed var(--p); padding: 15px; border-radius: 8px; margin-top: 10px; text-align: center; }
+        .metodo-badge { font-size: 0.65rem; padding: 2px 4px; border-radius: 3px; background: #eee; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -54,52 +56,57 @@
     </div>
 
     <div class="stats-grid">
-        <div class="stat-card"><small>En Estante</small><span id="stEstante">0</span></div>
-        <div class="stat-card"><small>Ganancia Mes</small><span id="stGanancia" style="color:var(--s)">$0</span></div>
-        <div class="stat-card"><small>Comisiones</small><span id="stComis" style="color:var(--err)">$0</span></div>
-        <div class="stat-card"><small>Mes Pasado</small><span id="stPasado">$0</span></div>
+        <div class="stat-card"><small>Estante</small><span id="statEstante">0</span></div>
+        <div class="stat-card"><small>Ganancia</small><span id="statGanancia" style="color:var(--s)">$0</span></div>
+        <div class="stat-card"><small>Comis.</small><span id="statComisiones" style="color:var(--err)">$0</span></div>
+        <div class="stat-card"><small>Anterior</small><span id="statMesPasado">$0</span></div>
     </div>
 
     <div class="card">
-        <h3>📥 Registro de Libro</h3>
-        <input type="text" id="titulo" placeholder="Título del ejemplar">
-        <input type="text" id="autor" placeholder="Autor">
+        <h3>📥 Valuador e Ingreso</h3>
         <div class="row">
-            <input type="number" id="paginas" placeholder="Págs">
-            <input type="number" id="estado" placeholder="Estado 0-10">
+            <input type="text" id="titulo" placeholder="Título">
+            <input type="text" id="autor" placeholder="Autor">
         </div>
         <div class="row">
-            <input type="number" id="costo" placeholder="Costo Compra $">
-            <input type="number" id="envio" placeholder="Costo Envío $">
+            <input type="number" id="paginas" placeholder="Págs">
+            <input type="number" id="estado" placeholder="Est. (0-10)">
+        </div>
+        <div class="row">
+            <input type="number" id="costo" placeholder="Costo $">
+            <input type="number" id="envio_in" placeholder="Envío $">
         </div>
         <div class="row">
             <input type="number" id="margen" placeholder="Margen %" value="40">
-            <input type="number" id="comision_p" placeholder="Comis. Plat %" value="0">
+            <input type="number" id="comision" placeholder="Plat. %" value="0">
         </div>
-        <div class="row" style="margin: 10px 0; font-size: 0.7rem;">
-            <label><input type="checkbox" id="popular"> Popular (+20%)</label>
-            <label><input type="checkbox" id="raro"> Raro (+50%)</label>
+        <label style="font-size:0.7rem">Comisión TC % <input type="number" id="comision_tc" value="3.5" step="0.1" style="padding:5px"></label>
+        
+        <div class="row" style="margin: 5px 0;">
+            <label style="font-size:0.7rem"><input type="checkbox" id="importado"> Importado</label>
+            <label style="font-size:0.7rem"><input type="checkbox" id="popular"> Popular</label>
+            <label style="font-size:0.7rem"><input type="checkbox" id="raro"> Raro</label>
         </div>
 
-        <button class="btn btn-p" onclick="preCalcular()">Calcular Valuación</button>
+        <button class="btn btn-p" onclick="preCalcular()">1. Calcular Precios</button>
 
-        <div id="preView" class="pre-view" style="display:none;">
+        <div id="preViewArea" class="pre-view" style="display:none;">
             <div class="row">
-                <div><small>SUGERIDO</small><br><strong id="vSug" style="font-size:1.3rem;"></strong></div>
-                <div><small>MÍNIMO</small><br><strong id="vMin" style="color:var(--err); font-size:1.1rem;"></strong></div>
+                <div><small>SUGERIDO</small><br><strong id="vSugerido" style="font-size:1.3rem;"></strong></div>
+                <div><small>MÍNIMO</small><br><strong id="vMinimo" style="color:var(--err); font-size:1.1rem;"></strong></div>
             </div>
-            <button class="btn btn-s" onclick="confirmarInv()">Confirmar a Inventario</button>
+            <button class="btn btn-s" onclick="guardarEnInventario()">2. Confirmar a Inventario</button>
         </div>
     </div>
 
     <div class="card">
-        <h3>📦 Inventario Actual</h3>
-        <input type="text" id="filtro" placeholder="🔍 Buscar por autor o título..." onkeyup="render()">
-        <div class="table-area">
-            <table id="tInv">
+        <h3>📦 Inventario Activo (Editable)</h3>
+        <input type="text" id="filtro" placeholder="🔍 Filtrar..." onkeyup="render()">
+        <div class="scroll-area">
+            <table id="tablaInv">
                 <thead>
                     <tr>
-                        <th>Título</th><th>Autor</th><th>Págs</th><th>Est.</th><th>Inversión</th><th>Sugerido</th><th>Mínimo</th><th>Acción</th>
+                        <th>Título</th><th>Autor</th><th>Págs</th><th>Est.</th><th>Inv.</th><th>Sug.</th><th>Mín.</th><th>Acción</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -109,150 +116,170 @@
 
     <div class="card">
         <h3>💰 Historial de Ventas</h3>
-        <div class="table-area">
-            <table id="tVen">
+        <div class="scroll-area">
+            <table id="tablaVentas">
                 <thead>
                     <tr>
-                        <th>Fecha</th><th>Libro</th><th>Venta</th><th>Neta</th><th>Comisión</th><th>Pago</th>
+                        <th>Fecha</th><th>Libro</th><th>Venta</th><th>Neta</th><th>Com.</th><th>Pago</th><th>Días</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
             </table>
         </div>
         <div class="row" style="margin-top:15px">
-            <button class="btn" style="background:#eee" onclick="exportar('inventario')">Excel Inv.</button>
-            <button class="btn" style="background:#eee" onclick="exportar('ventas')">Excel Ventas</button>
+            <button class="btn" style="background:#eee" onclick="exportarCSV('inventario')">Excel Inv.</button>
+            <button class="btn" style="background:#eee" onclick="exportarCSV('ventas')">Excel Ventas</button>
         </div>
-        <button class="btn" style="background:var(--err); color:white; font-size: 0.7rem;" onclick="cierreMes()">Cerrar Mes y Guardar Histórico</button>
+        <button class="btn" style="background:var(--err); color:white; font-size:0.7rem" onclick="cierreMensual()">🔒 CIERRE DE MES</button>
     </div>
 
-    <div style="text-align:center; padding: 20px; font-size: 0.6rem; color: #999; text-transform: uppercase;">
-        <span id="memTxt">Memoria: 0%</span>
-        <div style="height:2px; background:#eee; margin-top:5px;"><div id="memBar" style="height:100%; background:var(--p); width:0%;"></div></div>
+    <div style="text-align:center; padding: 20px; font-size: 0.6rem; color: #999;">
+        <span id="storageText">MEMORIA: 0%</span>
+        <div style="height:2px; background:#eee; margin-top:5px;"><div id="storageFill" style="height:100%; background:var(--p); width:0%;"></div></div>
     </div>
 
 <script>
-    let inv = JSON.parse(localStorage.getItem('LUL_inv')) || [];
-    let ven = JSON.parse(localStorage.getItem('LUL_ven')) || [];
-    let lastM = localStorage.getItem('LUL_last') || 0;
-    let tmp = null;
+    let inventario = JSON.parse(localStorage.getItem('LUL_inv')) || [];
+    let ventas = JSON.parse(localStorage.getItem('LUL_ven')) || [];
+    let mesPasado = localStorage.getItem('LUL_last') || 0;
+    let temp = null;
 
     function preCalcular() {
         const c = parseFloat(document.getElementById('costo').value) || 0;
-        const e = parseFloat(document.getElementById('envio').value) || 0;
-        const m = (parseFloat(document.getElementById('margen').value) || 0) / 100;
-        const cp = (parseFloat(document.getElementById('comision_p').value) || 0) / 100;
+        const ein = parseFloat(document.getElementById('envio_in').value) || 0;
+        const marg = (parseFloat(document.getElementById('margen').value) || 0) / 100;
+        const com = (parseFloat(document.getElementById('comision').value) || 0) / 100;
         const est = (parseInt(document.getElementById('estado').value) || 5) / 10;
         let mult = 1.0;
         if(document.getElementById('popular').checked) mult += 0.2;
         if(document.getElementById('raro').checked) mult += 0.5;
 
-        const totalInv = c + e;
-        const sug = Math.ceil((totalInv / (1 - m - cp)) * mult * est);
-        const min = Math.ceil(totalInv / (1 - cp));
+        const invTotal = c + ein;
+        const sugerido = Math.ceil((invTotal / (1 - marg - com)) * mult * est);
+        const minimo = Math.ceil(invTotal / (1 - com));
 
-        document.getElementById('vSug').innerText = `$${sug}`;
-        document.getElementById('vMin').innerText = `$${min}`;
-        document.getElementById('preView').style.display = 'block';
+        document.getElementById('vSugerido').innerText = `$${sugerido}`;
+        document.getElementById('vMinimo').innerText = `$${minimo}`;
+        document.getElementById('preViewArea').style.display = 'block';
 
-        tmp = {
-            id: Date.now(), t: document.getElementById('titulo').value, a: document.getElementById('autor').value,
-            p: parseInt(document.getElementById('paginas').value) || 0, e: parseInt(document.getElementById('estado').value) || 5,
-            c: c, en: e, marg: parseFloat(document.getElementById('margen').value),
-            cp: parseFloat(document.getElementById('comision_p').value),
-            sug: sug, min: min, f: new Date().toISOString()
+        temp = {
+            id: Date.now(), titulo: document.getElementById('titulo').value, autor: document.getElementById('autor').value,
+            paginas: parseInt(document.getElementById('paginas').value) || 0, estado: parseInt(document.getElementById('estado').value) || 5,
+            costo: c, envio: ein, margen: parseFloat(document.getElementById('margen').value),
+            comision_plat: parseFloat(document.getElementById('comision').value),
+            comision_tc: parseFloat(document.getElementById('comision_tc').value),
+            importado: document.getElementById('importado').checked, sugerido: sugerido, minimo: minimo, fecha: new Date().toISOString()
         };
     }
 
-    function confirmarInv() {
-        if(!tmp.t) return;
-        inv.push(tmp);
+    function guardarEnInventario() {
+        if(!temp.titulo) return alert("Falta título");
+        inventario.push(temp);
         save(); render();
-        document.getElementById('preView').style.display = 'none';
-        ['titulo','autor','paginas','costo','envio'].forEach(id => document.getElementById(id).value="");
+        document.getElementById('preViewArea').style.display = 'none';
+        limpiarForm();
     }
 
     function actualizarFila(id, campo, valor) {
-        const i = inv.findIndex(x => x.id === id);
-        inv[i][campo] = isNaN(valor) ? valor : parseFloat(valor);
-        const l = inv[i];
-        l.sug = Math.ceil(((l.c + l.en) / (1 - (l.marg/100) - (l.cp/100))) * (l.e/10));
-        l.min = Math.ceil((l.c + l.en) / (1 - (l.cp/100)));
+        const idx = inventario.findIndex(l => l.id === id);
+        inventario[idx][campo] = isNaN(valor) ? valor : parseFloat(valor);
+        const l = inventario[idx];
+        l.sugerido = Math.ceil(((l.costo+l.envio) / (1 - (l.margen/100) - (l.comision_plat/100))) * (l.estado/10));
+        l.minimo = Math.ceil((l.costo+l.envio) / (1 - (l.comision_plat/100)));
         save(); render();
     }
 
     function vender(id) {
-        const i = inv.findIndex(x => x.id === id);
-        const l = inv[i];
-        const pr = prompt(`Precio venta final para ${l.t}:`, l.sug);
-        if(!pr) return;
-        const met = prompt("Metodo: E (Efectivo/Transf) / C (Tarjeta +3.5%)", "E").toUpperCase();
-        const comP = pr * (l.cp / 100);
-        const comB = (met === 'C') ? pr * 0.035 : 0;
+        const idx = inventario.findIndex(l => l.id === id);
+        const l = inventario[idx];
+        const pReal = prompt(`Venta final ${l.titulo}:`, l.sugerido);
+        if(!pReal) return;
+        const met = prompt("E - Efectivo / C - Tarjeta", "E").toUpperCase();
+        const comPlat = pReal * (l.comision_plat / 100);
+        const comBanco = (met === 'C') ? pReal * (l.comision_tc / 100) : 0;
 
-        ven.push({
-            t: l.t, v: parseFloat(pr), cTot: l.c + l.en,
-            com: comP + comB, met: met === 'C' ? 'TC' : 'EF',
-            net: pr - (l.c + l.en) - (comP + comB),
-            f: new Date().toLocaleDateString()
+        ventas.push({
+            titulo: l.titulo, p_venta: parseFloat(pReal), costoTot: l.costo + l.envio,
+            comisionTotal: comPlat + comBanco, metodo: met === 'C' ? 'TARJETA' : 'EFECTIVO',
+            neta: pReal - (l.costo + l.envio) - (comPlat + comBanco),
+            fecha: new Date().toLocaleDateString(),
+            dias: Math.max(1, Math.ceil((new Date() - new Date(l.fecha)) / (1000*60*60*24)))
         });
-        inv.splice(i, 1);
+        inventario.splice(idx, 1);
         save(); render();
     }
 
     function copiarPost(id) {
-        const l = inv.find(x => x.id === id);
-        const pP = (l.sug / (l.p || 1)).toFixed(2);
-        const txt = `📖 *${l.t.toUpperCase()}*\n✍️ ${l.a}\n⭐ Estado: ${l.e}/10\n📄 Págs: ${l.p}\n💰 *Precio: $${l.sug}*\n($${pP} p/pág)\n📍 Mérida, Yucatán\n📦 La Última Librería`;
+        const l = inventario.find(x => x.id === id);
+        const pPag = (l.sugerido / (l.paginas || 1)).toFixed(2);
+        const txt = `📖 *${l.titulo.toUpperCase()}*\n✍️ ${l.autor}\n⭐ Estado: ${l.estado}/10\n📄 Págs: ${l.paginas}\n💰 *Precio: $${l.sugerido}*\n($${pPag} p/pág)\n${l.importado ? '✈️ Importado' : ''}\n📍 Mérida\n📦 La Última Librería`;
         navigator.clipboard.writeText(txt);
-        alert("¡Publicación copiada!");
+        alert("¡Copiado!");
     }
 
     function render() {
-        const f = document.getElementById('filtro').value.toLowerCase();
-        const invB = document.querySelector("#tInv tbody");
-        invB.innerHTML = inv.filter(l => l.t.toLowerCase().includes(f) || l.a.toLowerCase().includes(f)).map(l => `
+        const filtro = document.getElementById('filtro').value.toLowerCase();
+        const invB = document.querySelector("#tablaInv tbody");
+        invB.innerHTML = inventario.filter(l => l.titulo.toLowerCase().includes(filtro) || l.autor.toLowerCase().includes(filtro)).map(l => `
             <tr>
-                <td><input class="td-edit" value="${l.t}" onchange="actualizarFila(${l.id},'t',this.value)"></td>
-                <td><input class="td-edit" value="${l.a}" onchange="actualizarFila(${l.id},'a',this.value)"></td>
-                <td><input class="td-edit" type="number" value="${l.p}" onchange="actualizarFila(${l.id},'p',this.value)"></td>
-                <td><input class="td-edit" type="number" value="${l.e}" onchange="actualizarFila(${l.id},'e',this.value)"></td>
-                <td>$${l.c + l.en}</td>
-                <td style="font-weight:bold">$${l.sug}</td>
-                <td style="color:var(--err)">$${l.min}</td>
+                <td><input class="td-edit" value="${l.titulo}" onchange="actualizarFila(${l.id},'titulo',this.value)"></td>
+                <td><input class="td-edit" value="${l.autor}" onchange="actualizarFila(${l.id},'autor',this.value)"></td>
+                <td><input class="td-edit" type="number" value="${l.paginas}" onchange="actualizarFila(${l.id},'paginas',this.value)"></td>
+                <td><input class="td-edit" type="number" value="${l.estado}" onchange="actualizarFila(${l.id},'estado',this.value)"></td>
+                <td>$${l.costo + l.envio}</td>
+                <td style="font-weight:bold">$${l.sugerido}</td>
+                <td style="color:var(--err);font-size:0.75em">$${l.minimo}</td>
                 <td style="white-space:nowrap">
                     <button class="btn-action" onclick="copiarPost(${l.id})">📝</button>
-                    <button class="btn-action" onclick="vender(${l.id})">💰</button>
+                    <button class="btn-action" style="background:var(--s);color:white" onclick="vender(${l.id})">💰</button>
                 </td>
             </tr>`).join('');
 
-        const venB = document.querySelector("#tVen tbody");
-        venB.innerHTML = ven.map(v => `
+        const venB = document.querySelector("#tablaVentas tbody");
+        venB.innerHTML = ventas.map(v => `
             <tr>
-                <td>${v.f}</td><td>${v.t}</td><td>$${v.v}</td>
-                <td style="color:var(--s); font-weight:bold">$${v.net.toFixed(0)}</td>
-                <td style="color:var(--err)">$${v.com.toFixed(1)}</td><td>${v.met}</td>
+                <td>${v.fecha}</td><td title="${v.titulo}">${v.titulo.substring(0,12)}..</td><td>$${v.p_venta}</td>
+                <td style="color:var(--s);font-weight:bold">$${v.neta.toFixed(0)}</td>
+                <td style="color:var(--err)">$${v.comisionTotal.toFixed(1)}</td><td><span class="metodo-badge">${v.metodo}</span></td><td>${v.dias}d</td>
             </tr>`).reverse().join('');
 
-        document.getElementById('stEstante').innerText = inv.length;
-        document.getElementById('stGanancia').innerText = `$${ven.reduce((a,b)=>a+b.net,0).toFixed(0)}`;
-        document.getElementById('stComis').innerText = `$${ven.reduce((a,b)=>a+b.com,0).toFixed(0)}`;
-        document.getElementById('stPasado').innerText = `$${lastM}`;
-        
-        const mem = (JSON.stringify(localStorage).length / (5*1024*1024) * 100).toFixed(1);
-        document.getElementById('memBar').style.width = mem + "%";
-        document.getElementById('memTxt').innerText = `Memoria ocupada: ${mem}%`;
+        document.getElementById('statEstante').innerText = inventario.length;
+        document.getElementById('statGanancia').innerText = `$${ventas.reduce((acc, v) => acc + v.neta, 0).toFixed(0)}`;
+        document.getElementById('statComisiones').innerText = `$${ventas.reduce((acc, v) => acc + v.comisionTotal, 0).toFixed(0)}`;
+        document.getElementById('statMesPasado').innerText = `$${mesPasado}`;
+        checkMem();
     }
 
-    function exportar(tipo) {
-        let csv = tipo === 'inventario' ? "Titulo,Autor,Sugerido,Inversion\n"+inv.map(l=>`"${l.t}","${l.a}",${l.sug},${l.c+l.en}`).join("\n") 
-                                        : "Fecha,Titulo,GananciaNeta,Metodo\n"+ven.map(v=>`${v.f},"${v.t}",${v.net},${v.met}`).join("\n");
+    function exportarCSV(tipo) {
+        let csv = tipo === 'inventario' ? "Titulo,Autor,Sugerido\n"+inventario.map(l=>`"${l.titulo}","${l.autor}",${l.sugerido}`).join("\n") 
+                                        : "Fecha,Titulo,Neta,Metodo\n"+ventas.map(v=>`${v.f},"${v.titulo}",${v.neta},${v.metodo}`).join("\n");
         const b = new Blob(["\ufeff"+csv], {type:'text/csv;charset=utf-8;'});
         const a = document.createElement('a'); a.href=URL.createObjectURL(b); a.download=`${tipo}_LUL.csv`; a.click();
     }
 
-    function cierreMes() { if(confirm("¿Cerrar mes y limpiar historial de ventas?")){ lastM = ven.reduce((a,b)=>a+b.net,0).toFixed(0); localStorage.setItem('LUL_last', lastM); ven=[]; save(); location.reload(); }}
-    function save() { localStorage.setItem('LUL_inv', JSON.stringify(inv)); localStorage.setItem('LUL_ven', JSON.stringify(ven)); }
+    function cierreMensual() {
+        if(confirm("¿Cerrar mes? Se borrará el historial de ventas actual.")){
+            const gan = ventas.reduce((acc, v) => acc + v.neta, 0);
+            localStorage.setItem('LUL_last', gan.toFixed(0));
+            ventas = []; save(); location.reload();
+        }
+    }
+
+    function checkMem() {
+        const used = JSON.stringify(localStorage).length;
+        const perc = ((used / (5 * 1024 * 1024)) * 100).toFixed(1);
+        document.getElementById('storageFill').style.width = perc + "%";
+        document.getElementById('storageText').innerText = `MEMORIA: ${perc}%`;
+    }
+
+    function limpiarForm() {
+        ['titulo', 'autor', 'paginas', 'costo', 'envio_in'].forEach(id => document.getElementById(id).value = "");
+    }
+
+    function save() {
+        localStorage.setItem('LUL_inv', JSON.stringify(inventario));
+        localStorage.setItem('LUL_ven', JSON.stringify(ventas));
+    }
     render();
 </script>
 </body>
