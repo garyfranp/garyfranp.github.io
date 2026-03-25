@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LibreríaPro">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3389/3389037.png">
+    
+    <title>Librería Pro v8</title>
+    <style>
+        :root { --p: #2c3e50; --s: #27ae60; --err: #e74c3c; --info: #3498db; --bg: #f0f2f5; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background: var(--bg); margin: 0; padding: env(safe-area-inset-top) 10px 20px 10px;
+            overflow-x: hidden;
+        }
+
+        h2, h3 { color: var(--p); margin: 15px 0 10px 0; }
+        
+        /* Contenedores Flex para Móvil */
+        .container { display: flex; flex-direction: column; gap: 15px; }
+        .card { background: white; padding: 15px; border-radius: 12px; shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+        /* Formulario Táctil */
+        .form-group { margin-bottom: 10px; }
+        label { font-size: 0.8rem; font-weight: 600; color: #666; display: block; margin-bottom: 4px; }
+        input, select { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
+            font-size: 16px; /* Evita que iOS haga zoom automático al enfocar */
+            background: #fafafa;
+        }
+
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        /* Botones estilo iOS */
+        .btn { 
+            padding: 14px; border: none; border-radius: 10px; font-weight: bold; 
+            width: 100%; margin-top: 5px; font-size: 1rem; cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn:active { opacity: 0.6; }
+        .btn-p { background: var(--p); color: white; }
+        .btn-s { background: var(--s); color: white; }
+        
+        /* Tablas adaptadas */
+        .table-wrapper { overflow-x: auto; margin-top: 10px; border-radius: 8px; border: 1px solid #eee; }
+        table { width: 100%; border-collapse: collapse; background: white; font-size: 13px; }
+        th { background: #f8f9fa; padding: 10px; text-align: left; color: #888; text-transform: uppercase; font-size: 10px; }
+        td { padding: 12px 10px; border-top: 1px solid #eee; }
+
+        /* Stats estilo Widgets */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        .stat-box { background: var(--p); color: white; padding: 15px; border-radius: 12px; text-align: center; }
+        .stat-box small { font-size: 0.7rem; opacity: 0.8; display: block; }
+        .stat-box span { font-size: 1.2rem; font-weight: bold; }
+
+        .badge-tc { font-size: 9px; padding: 2px 4px; background: #e3f2fd; color: #1976d2; border-radius: 4px; }
+        
+        .storage-container { margin-top: 20px; font-size: 10px; color: #999; text-align: center; }
+        .storage-bar { height: 4px; background: #ddd; border-radius: 2px; margin-top: 4px; }
+        .storage-fill { height: 100%; background: var(--info); width: 0%; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="stats-grid">
+        <div class="stat-box"> <small>ESTANTE</small> <span id="countInv">0</span> </div>
+        <div class="stat-box" style="background:var(--s)"> <small>GANANCIA</small> <span id="sumGan">$0</span> </div>
+    </div>
+
+    <div class="card">
+        <h3>📥 Nuevo Ingreso</h3>
+        <div class="form-group">
+            <input type="text" id="titulo" placeholder="Título del libro">
+        </div>
+        <div class="form-group">
+            <input type="text" id="autor" placeholder="Autor">
+        </div>
+        <div class="row">
+            <input type="number" id="paginas" placeholder="Págs">
+            <input type="number" id="estado" placeholder="Estado (0-10)" min="0" max="10">
+        </div>
+        <div class="row">
+            <input type="number" id="costo" placeholder="Costo Compra">
+            <input type="number" id="envio" placeholder="Envío Pago">
+        </div>
+        <div class="row" style="margin-top:5px">
+            <label style="font-size:10px"><input type="checkbox" id="raro"> Raro (+50%)</label>
+            <label style="font-size:10px"><input type="checkbox" id="popular"> Popular (+20%)</label>
+        </div>
+        <button class="btn btn-p" onclick="calcular()">CALCULAR PRECIO</button>
+        
+        <div id="preView" style="display:none; margin-top:15px; padding:10px; background:#fff9c4; border-radius:8px; text-align:center;">
+            <div class="row">
+                <div><small>Sugerido</small><br><b id="resSug" style="font-size:1.4rem; color:var(--s)"></b></div>
+                <div><small>Mínimo</small><br><b id="resMin" style="font-size:1.4rem; color:var(--err)"></b></div>
+            </div>
+            <button class="btn btn-s" onclick="confirmar()">GUARDAR EN INVENTARIO</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>📦 Inventario</h3>
+        <input type="text" id="busqueda" placeholder="Buscar autor o título..." onkeyup="render()" style="margin-bottom:10px">
+        <div class="table-wrapper">
+            <table id="tInv">
+                <thead>
+                    <tr>
+                        <th>Libro</th>
+                        <th>Sugerido</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>💰 Ventas Recientes</h3>
+        <div class="table-wrapper">
+            <table id="tVen">
+                <thead>
+                    <tr>
+                        <th>Libro</th>
+                        <th>Neta</th>
+                        <th>Pago</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <button class="btn" style="background:#ddd; margin-top:15px;" onclick="exportar()">DESCARGAR EXCEL (CSV)</button>
+        <button class="btn" style="color:var(--err); background:none; font-size:0.8rem" onclick="cierre()">Cierre de Mes</button>
+    </div>
+
+    <div class="storage-container">
+        <span id="txtMem">Memoria: 0%</span>
+        <div class="storage-bar"><div id="barMem" class="storage-fill"></div></div>
+    </div>
+
+</div>
+
+<script>
+    let inv = JSON.parse(localStorage.getItem('i6s_inv')) || [];
+    let ven = JSON.parse(localStorage.getItem('i6s_ven')) || [];
+    let tmp = null;
+
+    function calcular() {
+        const c = parseFloat(document.getElementById('costo').value) || 0;
+        const e = parseFloat(document.getElementById('envio').value) || 0;
+        const est = (parseInt(document.getElementById('estado').value) || 5) / 10;
+        let m = 1.0;
+        if(document.getElementById('raro').checked) m += 0.5;
+        if(document.getElementById('popular').checked) m += 0.2;
+
+        const sug = Math.ceil(((c + e) / 0.6) * m * est);
+        const min = Math.ceil((c + e));
+
+        document.getElementById('resSug').innerText = `$${sug}`;
+        document.getElementById('resMin').innerText = `$${min}`;
+        document.getElementById('preView').style.display = 'block';
+
+        tmp = {
+            id: Date.now(),
+            t: document.getElementById('titulo').value,
+            a: document.getElementById('autor').value,
+            p: document.getElementById('paginas').value,
+            e: document.getElementById('estado').value,
+            inv: (c + e),
+            sug: sug,
+            min: min,
+            f: new Date().toISOString()
+        };
+    }
+
+    function confirmar() {
+        if(!tmp.t) return;
+        inv.push(tmp);
+        actualizar();
+        document.getElementById('preView').style.display = 'none';
+        ['titulo','autor','paginas','costo','envio'].forEach(i => document.getElementById(i).value="");
+    }
+
+    function vender(id) {
+        const i = inv.findIndex(x => x.id === id);
+        const l = inv[i];
+        const pr = prompt(`Precio venta ${l.t}:`, l.sug);
+        if(!pr) return;
+        
+        const tc = confirm("¿Fue pago con Tarjeta (Comisión)?");
+        const com = tc ? (pr * 0.04) : 0;
+
+        ven.push({
+            t: l.t,
+            v: parseFloat(pr),
+            n: pr - l.inv - com,
+            m: tc ? 'TC' : 'EF',
+            f: new Date().toLocaleDateString()
+        });
+        inv.splice(i, 1);
+        actualizar();
+    }
+
+    function actualizar() {
+        localStorage.setItem('i6s_inv', JSON.stringify(inv));
+        localStorage.setItem('i6s_ven', JSON.stringify(ven));
+        render();
+    }
+
+    function render() {
+        const f = document.getElementById('busqueda').value.toLowerCase();
+        
+        document.getElementById('tInv').querySelector('tbody').innerHTML = inv
+            .filter(x => x.t.toLowerCase().includes(f) || x.a.toLowerCase().includes(f))
+            .map(x => `<tr>
+                <td><b>${x.t}</b><br><small>${x.a}</small></td>
+                <td style="color:var(--s)">$${x.sug}</td>
+                <td><button onclick="vender(${x.id})" style="border:none; background:var(--s); color:white; border-radius:5px; padding:5px 10px">💰</button></td>
+            </tr>`).join('');
+
+        document.getElementById('tVen').querySelector('tbody').innerHTML = ven.slice(-5).map(x => `<tr>
+            <td>${x.t}</td>
+            <td style="color:var(--s)">$${x.n.toFixed(0)}</td>
+            <td><span class="badge-tc">${x.m}</span></td>
+        </tr>`).reverse().join('');
+
+        document.getElementById('countInv').innerText = inv.length;
+        const total = ven.reduce((a,b) => a + b.n, 0);
+        document.getElementById('sumGan').innerText = `$${total.toFixed(0)}`;
+        
+        const mem = (JSON.stringify(localStorage).length / (5*1024*1024) * 100).toFixed(1);
+        document.getElementById('barMem').style.width = mem + "%";
+        document.getElementById('txtMem').innerText = `Memoria: ${mem}%`;
+    }
+
+    function exportar() {
+        let csv = "Tipo,Libro,Valor\n" + inv.map(x => `INV,${x.t},${x.sug}`).join("\n") + "\n" + ven.map(x => `VEN,${x.t},${x.n}`).join("\n");
+        const b = new Blob(["\ufeff"+csv], {type:'text/csv'});
+        const u = URL.createObjectURL(b);
+        const a = document.createElement('a'); a.href=u; a.download="libreria.csv"; a.click();
+    }
+
+    function cierre() { if(confirm("¿Borrar historial de ventas?")) { ven=[]; actualizar(); } }
+
+    render();
+</script>
+</body>
+</html>
