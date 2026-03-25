@@ -5,116 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="LibreríaPro">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3389/3389037.png">
+    <meta name="apple-mobile-web-app-title" content="La Ultima">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/tester2.png">
     
-    <title>Librería Pro v8</title>
+    <title>La Última Librería - Admin</title>
     <style>
-        :root { --p: #2c3e50; --s: #27ae60; --err: #e74c3c; --info: #3498db; --bg: #f0f2f5; }
+        :root { --p: #1a1a1a; --s: #27ae60; --err: #c0392b; --info: #2980b9; --bg: #fdfdfd; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: "Courier New", Courier, monospace; background: var(--bg); margin: 0; padding: 10px; color: #1a1a1a; }
+
+        /* Encabezado con tu Logo */
+        .header { text-align: center; padding: 20px 0; border-bottom: 2px solid var(--p); margin-bottom: 20px; }
+        .logo-img { width: 120px; height: auto; }
+
+        /* Stats estilo Minimalista */
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+        .stat-card { border: 1.5px solid var(--p); padding: 10px; border-radius: 4px; text-align: center; background: white; }
+        .stat-card span { display: block; font-size: 1.1rem; font-weight: bold; }
+        .stat-card small { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Contenedores */
+        .card { background: white; padding: 15px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; }
+        h3 { margin: 0 0 12px 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; border-left: 4px solid var(--p); padding-left: 10px; }
         
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background: var(--bg); margin: 0; padding: env(safe-area-inset-top) 10px 20px 10px;
-            overflow-x: hidden;
-        }
-
-        h2, h3 { color: var(--p); margin: 15px 0 10px 0; }
+        input { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; font-family: inherit; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         
-        /* Contenedores Flex para Móvil */
-        .container { display: flex; flex-direction: column; gap: 15px; }
-        .card { background: white; padding: 15px; border-radius: 12px; shadow: 0 2px 8px rgba(0,0,0,0.1); }
-
-        /* Formulario Táctil */
-        .form-group { margin-bottom: 10px; }
-        label { font-size: 0.8rem; font-weight: 600; color: #666; display: block; margin-bottom: 4px; }
-        input, select { 
-            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
-            font-size: 16px; /* Evita que iOS haga zoom automático al enfocar */
-            background: #fafafa;
-        }
-
-        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-        /* Botones estilo iOS */
-        .btn { 
-            padding: 14px; border: none; border-radius: 10px; font-weight: bold; 
-            width: 100%; margin-top: 5px; font-size: 1rem; cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .btn:active { opacity: 0.6; }
+        /* Botones */
+        .btn { padding: 14px; border: none; border-radius: 4px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 8px; font-family: inherit; text-transform: uppercase; }
         .btn-p { background: var(--p); color: white; }
         .btn-s { background: var(--s); color: white; }
-        
-        /* Tablas adaptadas */
-        .table-wrapper { overflow-x: auto; margin-top: 10px; border-radius: 8px; border: 1px solid #eee; }
-        table { width: 100%; border-collapse: collapse; background: white; font-size: 13px; }
-        th { background: #f8f9fa; padding: 10px; text-align: left; color: #888; text-transform: uppercase; font-size: 10px; }
-        td { padding: 12px 10px; border-top: 1px solid #eee; }
+        .btn-action { padding: 6px; font-size: 1.2rem; border-radius: 4px; border: 1px solid #ddd; background: #fff; margin: 2px; }
 
-        /* Stats estilo Widgets */
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-        .stat-box { background: var(--p); color: white; padding: 15px; border-radius: 12px; text-align: center; }
-        .stat-box small { font-size: 0.7rem; opacity: 0.8; display: block; }
-        .stat-box span { font-size: 1.2rem; font-weight: bold; }
+        /* Tablas */
+        .table-area { overflow-x: auto; background: white; border: 1px solid #eee; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; min-width: 650px; }
+        th { background: #f0f0f0; padding: 10px; font-size: 0.65rem; text-align: left; }
+        td { padding: 10px; border-top: 1px solid #eee; font-size: 0.8rem; }
+        .td-edit { width: 100%; border: none; background: transparent; font-family: inherit; font-size: 0.8rem; }
 
-        .badge-tc { font-size: 9px; padding: 2px 4px; background: #e3f2fd; color: #1976d2; border-radius: 4px; }
-        
-        .storage-container { margin-top: 20px; font-size: 10px; color: #999; text-align: center; }
-        .storage-bar { height: 4px; background: #ddd; border-radius: 2px; margin-top: 4px; }
-        .storage-fill { height: 100%; background: var(--info); width: 0%; }
+        .pre-view { background: #f9f9f9; border: 2px dashed var(--p); padding: 15px; border-radius: 4px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    
+    <div class="header">
+        <img src="https://i.ibb.co/Z1f9XvX/tester2.png" alt="La Última Librería" class="logo-img">
+    </div>
+
     <div class="stats-grid">
-        <div class="stat-box"> <small>ESTANTE</small> <span id="countInv">0</span> </div>
-        <div class="stat-box" style="background:var(--s)"> <small>GANANCIA</small> <span id="sumGan">$0</span> </div>
+        <div class="stat-card"><small>En Estante</small><span id="stEstante">0</span></div>
+        <div class="stat-card"><small>Ganancia Mes</small><span id="stGanancia" style="color:var(--s)">$0</span></div>
+        <div class="stat-card"><small>Comisiones</small><span id="stComis" style="color:var(--err)">$0</span></div>
+        <div class="stat-card"><small>Mes Pasado</small><span id="stPasado">$0</span></div>
     </div>
 
     <div class="card">
-        <h3>📥 Nuevo Ingreso</h3>
-        <div class="form-group">
-            <input type="text" id="titulo" placeholder="Título del libro">
-        </div>
-        <div class="form-group">
-            <input type="text" id="autor" placeholder="Autor">
-        </div>
+        <h3>📥 Registro de Libro</h3>
+        <input type="text" id="titulo" placeholder="Título del ejemplar">
+        <input type="text" id="autor" placeholder="Autor">
         <div class="row">
             <input type="number" id="paginas" placeholder="Págs">
-            <input type="number" id="estado" placeholder="Estado (0-10)" min="0" max="10">
+            <input type="number" id="estado" placeholder="Estado 0-10">
         </div>
         <div class="row">
-            <input type="number" id="costo" placeholder="Costo Compra">
-            <input type="number" id="envio" placeholder="Envío Pago">
+            <input type="number" id="costo" placeholder="Costo Compra $">
+            <input type="number" id="envio" placeholder="Costo Envío $">
         </div>
-        <div class="row" style="margin-top:5px">
-            <label style="font-size:10px"><input type="checkbox" id="raro"> Raro (+50%)</label>
-            <label style="font-size:10px"><input type="checkbox" id="popular"> Popular (+20%)</label>
+        <div class="row">
+            <input type="number" id="margen" placeholder="Margen %" value="40">
+            <input type="number" id="comision_p" placeholder="Comis. Plat %" value="0">
         </div>
-        <button class="btn btn-p" onclick="calcular()">CALCULAR PRECIO</button>
-        
-        <div id="preView" style="display:none; margin-top:15px; padding:10px; background:#fff9c4; border-radius:8px; text-align:center;">
+        <div class="row" style="margin: 10px 0; font-size: 0.7rem;">
+            <label><input type="checkbox" id="popular"> Popular (+20%)</label>
+            <label><input type="checkbox" id="raro"> Raro (+50%)</label>
+        </div>
+
+        <button class="btn btn-p" onclick="preCalcular()">Calcular Valuación</button>
+
+        <div id="preView" class="pre-view" style="display:none;">
             <div class="row">
-                <div><small>Sugerido</small><br><b id="resSug" style="font-size:1.4rem; color:var(--s)"></b></div>
-                <div><small>Mínimo</small><br><b id="resMin" style="font-size:1.4rem; color:var(--err)"></b></div>
+                <div><small>SUGERIDO</small><br><strong id="vSug" style="font-size:1.3rem;"></strong></div>
+                <div><small>MÍNIMO</small><br><strong id="vMin" style="color:var(--err); font-size:1.1rem;"></strong></div>
             </div>
-            <button class="btn btn-s" onclick="confirmar()">GUARDAR EN INVENTARIO</button>
+            <button class="btn btn-s" onclick="confirmarInv()">Confirmar a Inventario</button>
         </div>
     </div>
 
     <div class="card">
-        <h3>📦 Inventario</h3>
-        <input type="text" id="busqueda" placeholder="Buscar autor o título..." onkeyup="render()" style="margin-bottom:10px">
-        <div class="table-wrapper">
+        <h3>📦 Inventario Actual</h3>
+        <input type="text" id="filtro" placeholder="🔍 Buscar por autor o título..." onkeyup="render()">
+        <div class="table-area">
             <table id="tInv">
                 <thead>
                     <tr>
-                        <th>Libro</th>
-                        <th>Sugerido</th>
-                        <th>Acción</th>
+                        <th>Título</th><th>Autor</th><th>Págs</th><th>Est.</th><th>Inversión</th><th>Sugerido</th><th>Mínimo</th><th>Acción</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -123,132 +108,151 @@
     </div>
 
     <div class="card">
-        <h3>💰 Ventas Recientes</h3>
-        <div class="table-wrapper">
+        <h3>💰 Historial de Ventas</h3>
+        <div class="table-area">
             <table id="tVen">
                 <thead>
                     <tr>
-                        <th>Libro</th>
-                        <th>Neta</th>
-                        <th>Pago</th>
+                        <th>Fecha</th><th>Libro</th><th>Venta</th><th>Neta</th><th>Comisión</th><th>Pago</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
             </table>
         </div>
-        <button class="btn" style="background:#ddd; margin-top:15px;" onclick="exportar()">DESCARGAR EXCEL (CSV)</button>
-        <button class="btn" style="color:var(--err); background:none; font-size:0.8rem" onclick="cierre()">Cierre de Mes</button>
+        <div class="row" style="margin-top:15px">
+            <button class="btn" style="background:#eee" onclick="exportar('inventario')">Excel Inv.</button>
+            <button class="btn" style="background:#eee" onclick="exportar('ventas')">Excel Ventas</button>
+        </div>
+        <button class="btn" style="background:var(--err); color:white; font-size: 0.7rem;" onclick="cierreMes()">Cerrar Mes y Guardar Histórico</button>
     </div>
 
-    <div class="storage-container">
-        <span id="txtMem">Memoria: 0%</span>
-        <div class="storage-bar"><div id="barMem" class="storage-fill"></div></div>
+    <div style="text-align:center; padding: 20px; font-size: 0.6rem; color: #999; text-transform: uppercase;">
+        <span id="memTxt">Memoria: 0%</span>
+        <div style="height:2px; background:#eee; margin-top:5px;"><div id="memBar" style="height:100%; background:var(--p); width:0%;"></div></div>
     </div>
-
-</div>
 
 <script>
-    let inv = JSON.parse(localStorage.getItem('i6s_inv')) || [];
-    let ven = JSON.parse(localStorage.getItem('i6s_ven')) || [];
+    let inv = JSON.parse(localStorage.getItem('LUL_inv')) || [];
+    let ven = JSON.parse(localStorage.getItem('LUL_ven')) || [];
+    let lastM = localStorage.getItem('LUL_last') || 0;
     let tmp = null;
 
-    function calcular() {
+    function preCalcular() {
         const c = parseFloat(document.getElementById('costo').value) || 0;
         const e = parseFloat(document.getElementById('envio').value) || 0;
+        const m = (parseFloat(document.getElementById('margen').value) || 0) / 100;
+        const cp = (parseFloat(document.getElementById('comision_p').value) || 0) / 100;
         const est = (parseInt(document.getElementById('estado').value) || 5) / 10;
-        let m = 1.0;
-        if(document.getElementById('raro').checked) m += 0.5;
-        if(document.getElementById('popular').checked) m += 0.2;
+        let mult = 1.0;
+        if(document.getElementById('popular').checked) mult += 0.2;
+        if(document.getElementById('raro').checked) mult += 0.5;
 
-        const sug = Math.ceil(((c + e) / 0.6) * m * est);
-        const min = Math.ceil((c + e));
+        const totalInv = c + e;
+        const sug = Math.ceil((totalInv / (1 - m - cp)) * mult * est);
+        const min = Math.ceil(totalInv / (1 - cp));
 
-        document.getElementById('resSug').innerText = `$${sug}`;
-        document.getElementById('resMin').innerText = `$${min}`;
+        document.getElementById('vSug').innerText = `$${sug}`;
+        document.getElementById('vMin').innerText = `$${min}`;
         document.getElementById('preView').style.display = 'block';
 
         tmp = {
-            id: Date.now(),
-            t: document.getElementById('titulo').value,
-            a: document.getElementById('autor').value,
-            p: document.getElementById('paginas').value,
-            e: document.getElementById('estado').value,
-            inv: (c + e),
-            sug: sug,
-            min: min,
-            f: new Date().toISOString()
+            id: Date.now(), t: document.getElementById('titulo').value, a: document.getElementById('autor').value,
+            p: parseInt(document.getElementById('paginas').value) || 0, e: parseInt(document.getElementById('estado').value) || 5,
+            c: c, en: e, marg: parseFloat(document.getElementById('margen').value),
+            cp: parseFloat(document.getElementById('comision_p').value),
+            sug: sug, min: min, f: new Date().toISOString()
         };
     }
 
-    function confirmar() {
+    function confirmarInv() {
         if(!tmp.t) return;
         inv.push(tmp);
-        actualizar();
+        save(); render();
         document.getElementById('preView').style.display = 'none';
-        ['titulo','autor','paginas','costo','envio'].forEach(i => document.getElementById(i).value="");
+        ['titulo','autor','paginas','costo','envio'].forEach(id => document.getElementById(id).value="");
+    }
+
+    function actualizarFila(id, campo, valor) {
+        const i = inv.findIndex(x => x.id === id);
+        inv[i][campo] = isNaN(valor) ? valor : parseFloat(valor);
+        const l = inv[i];
+        l.sug = Math.ceil(((l.c + l.en) / (1 - (l.marg/100) - (l.cp/100))) * (l.e/10));
+        l.min = Math.ceil((l.c + l.en) / (1 - (l.cp/100)));
+        save(); render();
     }
 
     function vender(id) {
         const i = inv.findIndex(x => x.id === id);
         const l = inv[i];
-        const pr = prompt(`Precio venta ${l.t}:`, l.sug);
+        const pr = prompt(`Precio venta final para ${l.t}:`, l.sug);
         if(!pr) return;
-        
-        const tc = confirm("¿Fue pago con Tarjeta (Comisión)?");
-        const com = tc ? (pr * 0.04) : 0;
+        const met = prompt("Metodo: E (Efectivo/Transf) / C (Tarjeta +3.5%)", "E").toUpperCase();
+        const comP = pr * (l.cp / 100);
+        const comB = (met === 'C') ? pr * 0.035 : 0;
 
         ven.push({
-            t: l.t,
-            v: parseFloat(pr),
-            n: pr - l.inv - com,
-            m: tc ? 'TC' : 'EF',
+            t: l.t, v: parseFloat(pr), cTot: l.c + l.en,
+            com: comP + comB, met: met === 'C' ? 'TC' : 'EF',
+            net: pr - (l.c + l.en) - (comP + comB),
             f: new Date().toLocaleDateString()
         });
         inv.splice(i, 1);
-        actualizar();
+        save(); render();
     }
 
-    function actualizar() {
-        localStorage.setItem('i6s_inv', JSON.stringify(inv));
-        localStorage.setItem('i6s_ven', JSON.stringify(ven));
-        render();
+    function copiarPost(id) {
+        const l = inv.find(x => x.id === id);
+        const pP = (l.sug / (l.p || 1)).toFixed(2);
+        const txt = `📖 *${l.t.toUpperCase()}*\n✍️ ${l.a}\n⭐ Estado: ${l.e}/10\n📄 Págs: ${l.p}\n💰 *Precio: $${l.sug}*\n($${pP} p/pág)\n📍 Mérida, Yucatán\n📦 La Última Librería`;
+        navigator.clipboard.writeText(txt);
+        alert("¡Publicación copiada!");
     }
 
     function render() {
-        const f = document.getElementById('busqueda').value.toLowerCase();
-        
-        document.getElementById('tInv').querySelector('tbody').innerHTML = inv
-            .filter(x => x.t.toLowerCase().includes(f) || x.a.toLowerCase().includes(f))
-            .map(x => `<tr>
-                <td><b>${x.t}</b><br><small>${x.a}</small></td>
-                <td style="color:var(--s)">$${x.sug}</td>
-                <td><button onclick="vender(${x.id})" style="border:none; background:var(--s); color:white; border-radius:5px; padding:5px 10px">💰</button></td>
+        const f = document.getElementById('filtro').value.toLowerCase();
+        const invB = document.querySelector("#tInv tbody");
+        invB.innerHTML = inv.filter(l => l.t.toLowerCase().includes(f) || l.a.toLowerCase().includes(f)).map(l => `
+            <tr>
+                <td><input class="td-edit" value="${l.t}" onchange="actualizarFila(${l.id},'t',this.value)"></td>
+                <td><input class="td-edit" value="${l.a}" onchange="actualizarFila(${l.id},'a',this.value)"></td>
+                <td><input class="td-edit" type="number" value="${l.p}" onchange="actualizarFila(${l.id},'p',this.value)"></td>
+                <td><input class="td-edit" type="number" value="${l.e}" onchange="actualizarFila(${l.id},'e',this.value)"></td>
+                <td>$${l.c + l.en}</td>
+                <td style="font-weight:bold">$${l.sug}</td>
+                <td style="color:var(--err)">$${l.min}</td>
+                <td style="white-space:nowrap">
+                    <button class="btn-action" onclick="copiarPost(${l.id})">📝</button>
+                    <button class="btn-action" onclick="vender(${l.id})">💰</button>
+                </td>
             </tr>`).join('');
 
-        document.getElementById('tVen').querySelector('tbody').innerHTML = ven.slice(-5).map(x => `<tr>
-            <td>${x.t}</td>
-            <td style="color:var(--s)">$${x.n.toFixed(0)}</td>
-            <td><span class="badge-tc">${x.m}</span></td>
-        </tr>`).reverse().join('');
+        const venB = document.querySelector("#tVen tbody");
+        venB.innerHTML = ven.map(v => `
+            <tr>
+                <td>${v.f}</td><td>${v.t}</td><td>$${v.v}</td>
+                <td style="color:var(--s); font-weight:bold">$${v.net.toFixed(0)}</td>
+                <td style="color:var(--err)">$${v.com.toFixed(1)}</td><td>${v.met}</td>
+            </tr>`).reverse().join('');
 
-        document.getElementById('countInv').innerText = inv.length;
-        const total = ven.reduce((a,b) => a + b.n, 0);
-        document.getElementById('sumGan').innerText = `$${total.toFixed(0)}`;
+        document.getElementById('stEstante').innerText = inv.length;
+        document.getElementById('stGanancia').innerText = `$${ven.reduce((a,b)=>a+b.net,0).toFixed(0)}`;
+        document.getElementById('stComis').innerText = `$${ven.reduce((a,b)=>a+b.com,0).toFixed(0)}`;
+        document.getElementById('stPasado').innerText = `$${lastM}`;
         
         const mem = (JSON.stringify(localStorage).length / (5*1024*1024) * 100).toFixed(1);
-        document.getElementById('barMem').style.width = mem + "%";
-        document.getElementById('txtMem').innerText = `Memoria: ${mem}%`;
+        document.getElementById('memBar').style.width = mem + "%";
+        document.getElementById('memTxt').innerText = `Memoria ocupada: ${mem}%`;
     }
 
-    function exportar() {
-        let csv = "Tipo,Libro,Valor\n" + inv.map(x => `INV,${x.t},${x.sug}`).join("\n") + "\n" + ven.map(x => `VEN,${x.t},${x.n}`).join("\n");
-        const b = new Blob(["\ufeff"+csv], {type:'text/csv'});
-        const u = URL.createObjectURL(b);
-        const a = document.createElement('a'); a.href=u; a.download="libreria.csv"; a.click();
+    function exportar(tipo) {
+        let csv = tipo === 'inventario' ? "Titulo,Autor,Sugerido,Inversion\n"+inv.map(l=>`"${l.t}","${l.a}",${l.sug},${l.c+l.en}`).join("\n") 
+                                        : "Fecha,Titulo,GananciaNeta,Metodo\n"+ven.map(v=>`${v.f},"${v.t}",${v.net},${v.met}`).join("\n");
+        const b = new Blob(["\ufeff"+csv], {type:'text/csv;charset=utf-8;'});
+        const a = document.createElement('a'); a.href=URL.createObjectURL(b); a.download=`${tipo}_LUL.csv`; a.click();
     }
 
-    function cierre() { if(confirm("¿Borrar historial de ventas?")) { ven=[]; actualizar(); } }
-
+    function cierreMes() { if(confirm("¿Cerrar mes y limpiar historial de ventas?")){ lastM = ven.reduce((a,b)=>a+b.net,0).toFixed(0); localStorage.setItem('LUL_last', lastM); ven=[]; save(); location.reload(); }}
+    function save() { localStorage.setItem('LUL_inv', JSON.stringify(inv)); localStorage.setItem('LUL_ven', JSON.stringify(ven)); }
     render();
 </script>
 </body>
