@@ -26,7 +26,9 @@
         .logo-img { width: 100%; max-width: 280px; height: auto; transition: max-width 0.3s ease; }
         /* Contenedor Maestro */
         /*
-        #viewport { 
+        
+        /* Layout Escritorio por defecto */
+       /* #viewport { 
             background: var(--bg); 
             transition: all 0.3s ease; 
             min-height: 100vh;
@@ -34,13 +36,14 @@
             padding: 20px;
             display: grid;
             gap: 20px;
-            /* Layout Escritorio por defecto */
+            
             grid-template-columns: 350px 1fr;
             grid-template-areas: 
                 "header header"
                 "izq der";
         }
-*/
+        */
+
         #viewport { 
     background: var(--bg); 
     transition: all 0.3s ease; 
@@ -103,22 +106,23 @@
     </style>
 </head>
 <body>
-    /*
+<!-- Aqui tu comentario 
     <select class="env-selector" id="envSelector" onchange="cambiarEntorno()">
         <option value="desktop">🖥️ Escritorio</option>
         <option value="iphone">📱 iPhone 6s/9s</option>
     </select>
-*/
+-->
     <div id="viewport">
-        /*
+            <!-- Aqui tu comentario 
         <div class="header">
             <img src="tester2.png" alt="La Última Librería" class="logo-img">
         </div>
-        */
+        -->
+        
 
         <div id="col-izq">
             <div class="card">
-                /*opcion integrada en la ultima revision 27 mar 1:00pm -----------------  */
+                <!-- opcion integrada en la ultima revision 27 mar 1:00pm  ///***************  -->
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
             <img src="tester2.png" alt="LUL" style="width: 80px; height: auto;">
             <select id="envSelector" onchange="cambiarEntorno()" style="width: auto; font-size: 0.65rem; padding: 5px; margin: 0; border: 1px solid var(--p);">
@@ -127,8 +131,8 @@
             </select>
         </div>
 
-                
-                /*opcion integrada en la ultima revision 27 mar 1:00pm -----------------*/
+                <!-- termina vloque opcion integrada en la ultima revision 27 mar 1:00pm -->
+             
                 <h3>📥 Valuador e Ingreso</h3>
                 <div class="row">
                     <input type="text" id="titulo" placeholder="Título">
