@@ -106,6 +106,7 @@ body.tema-phosphor-mc {
 
 .tema-phosphor-mc table {
     border: 1px solid var(--p);
+   background: var(--s);          /* Verde Oscuro Fondo */
 }
 
 .tema-phosphor-mc th {
