@@ -1,28 +1,225 @@
-/* --- TEMA 1: PHOSPHOR-MC (Verde Monocromo) --- */
-body.tema-phosphor-mc {
-    --bg: #000000; --card-bg: #000000; --p: #00FF00; --s: #008800; 
-    --err: #FFAA00; --text: #00FF00; --info: #00FFFF;
-}
+/* =========================================
+   ARCHIVO EXTERNO: temas.css
+   Sobreescritura Estética para Temas Retro
+   ========================================= */
 
-.tema-phosphor-mc, .tema-phosphor-mc * { font-family: 'Courier New', Courier, monospace !important; }
-.tema-phosphor-mc .card { background: var(--card-bg); border: 2px solid var(--p); border-radius: 0; }
-.tema-phosphor-mc h3 { background: var(--p); color: #000; text-align: center; padding: 5px; }
-.tema-phosphor-mc input { background: #002200; border: 1px solid var(--p); color: var(--p); border-radius: 0; }
-.tema-phosphor-mc .btn-p { background: var(--p); color: #000; border-radius: 0; }
-.tema-phosphor-mc table { border: 1px solid var(--p); }
-.tema-phosphor-mc th { background: var(--s); color: var(--p); }
-.tema-phosphor-mc td { border: 1px solid var(--p); color: var(--p); }
-
-/* --- TEMA 2: CLASSIC-MC (Azul y Amarillo) --- */
+/* --- CONFIGURACIÓN GLOBAL PARA AMBOS TEMAS RETRO --- */
+/* Forzamos fuente Mono, eliminamos sombras modernas y redondeos */
+body.tema-phosphor-mc,
 body.tema-classic-mc {
-    --bg: #000088; --card-bg: #000088; --p: #FFFF00; --s: #00AAAA; 
-    --err: #FF5555; --text: #FFFF00; --info: #00FFFF;
+    font-family: 'Courier New', Courier, monospace !important;
+    -webkit-font-smoothing: none; /* Estética pixelada */
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.tema-classic-mc, .tema-classic-mc * { font-family: 'Courier New', Courier, monospace !important; }
-.tema-classic-mc .card { background: var(--card-bg); border: 3px solid #AAAAAA; border-radius: 0; }
-.tema-classic-mc h3 { background: #AAAAAA; color: #000; text-align: center; padding: 5px; }
-.tema-classic-mc input { background: #0000AA; border: 1px solid #AAAAAA; color: var(--p); border-radius: 0; }
-.tema-classic-mc .btn-p { background: var(--p); color: #000088; border-radius: 0; }
-.tema-classic-mc th { background: #0000AA; color: var(--p); border-bottom: 2px solid white; }
-.tema-classic-mc td { border: 1px solid white; color: var(--p); }
+/* Normalización de elementos para estética TUI */
+body.tema-phosphor-mc *,
+body.tema-classic-mc * {
+    font-family: 'Courier New', Courier, monospace !important;
+    box-shadow: none !important; /* Eliminamos sombras modernas */
+    text-shadow: none !important;
+    border-radius: 0 !important; /* Esquinas rectas terminal */
+    transition: none !important; /* Sin animaciones suaves */
+}
+
+/* Ajuste de Cards y Inputs */
+body.tema-phosphor-mc .card,
+body.tema-classic-mc .card {
+    margin-bottom: 10px;
+}
+
+body.tema-phosphor-mc input,
+body.tema-classic-mc input {
+    font-size: 14px;
+    padding: 8px;
+}
+
+/* =========================================
+   TEMA 1: PHOSPHOR-MC (Verde Fósforo)
+   Inspirado en Midnight Commander en RPi
+   ========================================= */
+body.tema-phosphor-mc {
+    --bg: #000000;
+    --card-bg: #000000;
+    --p: #00FF00;          /* Verde Brillante */
+    --s: #004400;          /* Verde Oscuro Fondo */
+    --err: #FFCC00;        /* Ámbar Alerta */
+    --text: #00FF00;
+    --info: #00FFFF;       /* Cian */
+    
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+/* --- Sobreescritura de Cards y Botones Phosphor --- */
+.tema-phosphor-mc .card {
+    border: 2px solid var(--p);
+}
+
+.tema-phosphor-mc h3 {
+    background: var(--p);
+    color: #000;
+    text-align: center;
+    border-left: none;
+    padding: 3px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.tema-phosphor-mc input {
+    background: #001100;
+    border: 1px solid var(--p);
+    color: var(--p);
+}
+
+.tema-phosphor-mc input:focus {
+    border-color: var(--info);
+    background: #002200;
+}
+
+.tema-phosphor-mc .btn-p {
+    background: var(--p);
+    color: #000;
+    font-weight: bold;
+    border: 2px solid var(--p);
+}
+
+.tema-phosphor-mc .btn-s {
+    background: var(--s);
+    color: var(--p);
+    border: 2px solid var(--p);
+}
+
+.tema-phosphor-mc .btn-action {
+    background: #000;
+    color: var(--p);
+    border: 1px solid var(--p);
+}
+
+/* --- Sobreescritura de Stats y Tablas Phosphor --- */
+.tema-phosphor-mc .stat-card {
+    background: #000;
+    border: 2px solid var(--p);
+}
+.tema-phosphor-mc .stat-card small { color: var(--p); }
+.tema-phosphor-mc .stat-card span { color: var(--p); }
+
+.tema-phosphor-mc table {
+    border: 1px solid var(--p);
+}
+
+.tema-phosphor-mc th {
+    background: var(--s);
+    color: var(--p);
+    border-bottom: 2px solid var(--p);
+    font-weight: bold;
+}
+
+.tema-phosphor-mc td {
+    border-top: 1px solid var(--p);
+    border-right: 1px solid var(--p);
+    color: var(--p);
+    padding: 5px;
+}
+
+.tema-phosphor-mc td:last-child { border-right: none; }
+.tema-phosphor-mc .td-edit { color: var(--p); }
+.tema-phosphor-mc td[style*="color:var(--s)"] { color: var(--p) !important; }
+.tema-phosphor-mc td[style*="color:var(--err)"] { color: var(--err) !important; }
+.tema-phosphor-mc .metodo-badge { background: var(--s); color: var(--info); border: 1px solid var(--info); }
+
+
+/* =========================================
+   TEMA 2: CLASSIC-MC (Azul y Amarillo)
+   Inspirado en el Midnight Commander Clásico
+   ========================================= */
+body.tema-classic-mc {
+    --bg: #000088;         /* Azul MC */
+    --card-bg: #000088;
+    --p: #FFFF00;          /* Amarillo Texto */
+    --s: #00AAAA;          /* Cian Fondo */
+    --err: #FF5555;        /* Rojo Brillante */
+    --text: #FFFF00;
+    --info: #00FFFF;       /* Cian Puro */
+    --border-mc: #AAAAAA;  /* Gris Borde MC */
+    
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+/* --- Sobreescritura de Cards y Botones Classic --- */
+.tema-classic-mc .card {
+    border: 3px solid var(--border-mc);
+}
+
+.tema-classic-mc h3 {
+    background: var(--border-mc);
+    color: #000;
+    text-align: center;
+    border-left: none;
+    padding: 3px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.tema-classic-mc input {
+    background: #0000AA;
+    border: 1px solid var(--border-mc);
+    color: var(--p);
+}
+
+.tema-classic-mc input:focus {
+    border-color: white;
+}
+
+.tema-classic-mc .btn-p {
+    background: var(--p);
+    color: #000088;
+    font-weight: bold;
+    border: 2px solid var(--border-mc);
+}
+
+.tema-classic-mc .btn-s {
+    background: var(--s);
+    color: white;
+    border: 2px solid white;
+}
+
+.tema-classic-mc .btn-action {
+    background: #0000AA;
+    color: var(--p);
+    border: 1px solid white;
+}
+
+/* --- Sobreescritura de Stats y Tablas Classic --- */
+.tema-classic-mc .stat-card {
+    background: var(--border-mc);
+    border: 1px solid #555;
+    color: #000;
+}
+.tema-classic-mc .stat-card small { color: #000; font-weight: bold; }
+.tema-classic-mc .stat-card span { color: #000; }
+
+.tema-classic-mc table {
+    border: 1px solid var(--border-mc);
+}
+
+.tema-classic-mc th {
+    background: #0000AA;
+    color: var(--p);
+    border-bottom: 2px solid white;
+    font-weight: bold;
+}
+
+.tema-classic-mc td {
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    color: var(--p);
+    padding: 5px;
+}
+
+.tema-classic-mc td:last-child { border-right: none; }
+.tema-classic-mc .td-edit { color: var(--p); }
+.tema-classic-mc td[style*="color:var(--s)"] { color: var(--info) !important; }
+.tema-classic-mc td[style*="color:var(--err)"] { color: var(--err) !important; }
+.tema-classic-mc .metodo-badge { background: #0000AA; color: var(--p); border: 1px solid white; }
