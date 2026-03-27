@@ -7,18 +7,58 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="La Ultima">
     <link rel="apple-touch-icon" href="tester2.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
-    <title>La Última Librería - Admin Pro</title>
+    <title>La Última Librería - Admin</title>
     <style>
         :root { --p: #1a1a1a; --s: #27ae60; --err: #c0392b; --info: #2980b9; --bg: #fdfdfd; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: "Courier New", Courier, monospace; background: var(--bg); margin: 0; padding: env(safe-area-inset-top) 10px 20px 10px; color: #1a1a1a; }
+        
+        /* Cambio a Fuente Roboto */
+        body { font-family: 'Roboto', sans-serif; background: #e0e0e0; margin: 0; padding: 0; color: #1a1a1a; }
+
+        /* Selector de Entorno */
+        .env-selector { position: fixed; top: 10px; right: 10px; z-index: 9999; background: white; padding: 5px; border: 2px solid var(--p); border-radius: 5px; font-family: inherit; font-size: 0.7rem; }
 
         /* Encabezado */
-        .header { text-align: center; padding: 15px 0; border-bottom: 2px solid var(--p); margin-bottom: 15px; }
+        .header { text-align: center; padding: 15px 0; border-bottom: 2px solid var(--p); background: var(--bg); width: 100%; }
         .logo-img { width: 100px; height: auto; }
 
-        /* Stats estilo iPhone 6s */
+        /* Contenedor Maestro */
+        #viewport { 
+            background: var(--bg); 
+            transition: all 0.3s ease; 
+            min-height: 100vh;
+            width: 100%;
+            padding: 20px;
+            display: grid;
+            gap: 20px;
+            /* Layout Escritorio por defecto */
+            grid-template-columns: 350px 1fr;
+            grid-template-areas: 
+                "header header"
+                "izq der";
+        }
+
+        .header { grid-area: header; }
+        #col-izq { grid-area: izq; }
+        #col-der { grid-area: der; }
+
+        /* Ajustes Vista iPhone */
+        .iphone-view { 
+            display: block !important; /* Vuelve a flujo vertical */
+            width: 375px !important; 
+            height: 667px; 
+            overflow-y: auto; 
+            margin: 50px auto; 
+            border: 12px solid #1a1a1a; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            padding: 10px !important;
+        }
+        .iphone-view .header { margin-bottom: 15px; }
+
+        /* Stats */
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 15px; }
         .stat-card { border: 1.5px solid var(--p); padding: 10px; border-radius: 8px; text-align: center; background: white; }
         .stat-card span { display: block; font-size: 1.1rem; font-weight: bold; }
@@ -37,13 +77,12 @@
         .btn-s { background: var(--s); color: white; }
         .btn-action { padding: 8px; font-size: 1.1rem; border-radius: 5px; border: 1px solid #ddd; background: #fff; margin: 2px; }
 
-        /* Tablas con Scroll */
+        /* Tablas */
         .scroll-area { overflow-x: auto; background: white; border: 1px solid #eee; border-radius: 6px; max-height: 400px; }
         table { width: 100%; border-collapse: collapse; min-width: 600px; }
         th { background: #f0f0f0; padding: 10px; font-size: 0.65rem; text-align: left; position: sticky; top: 0; }
         td { padding: 10px; border-top: 1px solid #eee; font-size: 0.8rem; }
         .td-edit { width: 100%; border: none; background: transparent; font-family: inherit; font-size: 0.8rem; padding: 4px; }
-        .td-edit:focus { background: #fffde7; outline: 1px solid var(--info); }
 
         .pre-view { background: #f9f9f9; border: 2px dashed var(--p); padding: 15px; border-radius: 8px; margin-top: 10px; text-align: center; }
         .metodo-badge { font-size: 0.65rem; padding: 2px 4px; border-radius: 3px; background: #eee; font-weight: bold; }
@@ -51,94 +90,116 @@
 </head>
 <body>
 
-    <div class="header">
-        <img src="tester2.png" alt="La Última Librería" class="logo-img">
-    </div>
+    <select class="env-selector" id="envSelector" onchange="cambiarEntorno()">
+        <option value="desktop">🖥️ Escritorio</option>
+        <option value="iphone">📱 iPhone 6s/9s</option>
+    </select>
 
-    <div class="stats-grid">
-        <div class="stat-card"><small>Estante</small><span id="statEstante">0</span></div>
-        <div class="stat-card"><small>Ganancia</small><span id="statGanancia" style="color:var(--s)">$0</span></div>
-        <div class="stat-card"><small>Comis.</small><span id="statComisiones" style="color:var(--err)">$0</span></div>
-        <div class="stat-card"><small>Anterior</small><span id="statMesPasado">$0</span></div>
-    </div>
-
-    <div class="card">
-        <h3>📥 Valuador e Ingreso</h3>
-        <div class="row">
-            <input type="text" id="titulo" placeholder="Título">
-            <input type="text" id="autor" placeholder="Autor">
-        </div>
-        <div class="row">
-            <input type="number" id="paginas" placeholder="Págs">
-            <input type="number" id="estado" placeholder="Est. (0-10)">
-        </div>
-        <div class="row">
-            <input type="number" id="costo" placeholder="Costo $">
-            <input type="number" id="envio_in" placeholder="Envío $">
-        </div>
-        <div class="row">
-            <input type="number" id="margen" placeholder="Margen %" value="40">
-            <input type="number" id="comision" placeholder="Plat. %" value="0">
-        </div>
-        <label style="font-size:0.7rem">Comisión TC % <input type="number" id="comision_tc" value="3.5" step="0.1" style="padding:5px"></label>
-        
-        <div class="row" style="margin: 5px 0;">
-            <label style="font-size:0.7rem"><input type="checkbox" id="importado"> Importado</label>
-            <label style="font-size:0.7rem"><input type="checkbox" id="popular"> Popular</label>
-            <label style="font-size:0.7rem"><input type="checkbox" id="raro"> Raro</label>
+    <div id="viewport">
+        <div class="header">
+            <img src="tester2.png" alt="La Última Librería" class="logo-img">
         </div>
 
-        <button class="btn btn-p" onclick="preCalcular()">1. Calcular Precios</button>
+        <div id="col-izq">
+            <div class="card">
+                <h3>📥 Valuador e Ingreso</h3>
+                <div class="row">
+                    <input type="text" id="titulo" placeholder="Título">
+                    <input type="text" id="autor" placeholder="Autor">
+                </div>
+                <div class="row">
+                    <input type="number" id="paginas" placeholder="Págs">
+                    <input type="number" id="estado" placeholder="Est. (0-10)">
+                </div>
+                <div class="row">
+                    <input type="number" id="costo" placeholder="Costo $">
+                    <input type="number" id="envio_in" placeholder="Envío $">
+                </div>
+                <div class="row">
+                    <input type="number" id="margen" placeholder="Margen %" value="40">
+                    <input type="number" id="comision" placeholder="Plat. %" value="0">
+                </div>
+                <label style="font-size:0.7rem">Comisión TC % <input type="number" id="comision_tc" value="3.5" step="0.1" style="padding:5px"></label>
+                
+                <div class="row" style="margin: 5px 0;">
+                    <label style="font-size:0.7rem"><input type="checkbox" id="importado"> Importado</label>
+                    <label style="font-size:0.7rem"><input type="checkbox" id="popular"> Popular</label>
+                    <label style="font-size:0.7rem"><input type="checkbox" id="raro"> Raro</label>
+                </div>
 
-        <div id="preViewArea" class="pre-view" style="display:none;">
-            <div class="row">
-                <div><small>SUGERIDO</small><br><strong id="vSugerido" style="font-size:1.3rem;"></strong></div>
-                <div><small>MÍNIMO</small><br><strong id="vMinimo" style="color:var(--err); font-size:1.1rem;"></strong></div>
+                <button class="btn btn-p" onclick="preCalcular()">1. Calcular Precios</button>
+
+                <div id="preViewArea" class="pre-view" style="display:none;">
+                    <div class="row">
+                        <div><small>SUGERIDO</small><br><strong id="vSugerido" style="font-size:1.3rem;"></strong></div>
+                        <div><small>MÍNIMO</small><br><strong id="vMinimo" style="color:var(--err); font-size:1.1rem;"></strong></div>
+                    </div>
+                    <button class="btn btn-s" onclick="guardarEnInventario()">2. Confirmar a Inventario</button>
+                </div>
             </div>
-            <button class="btn btn-s" onclick="guardarEnInventario()">2. Confirmar a Inventario</button>
         </div>
-    </div>
 
-    <div class="card">
-        <h3>📦 Inventario Activo (Editable)</h3>
-        <input type="text" id="filtro" placeholder="🔍 Filtrar..." onkeyup="render()">
-        <div class="scroll-area">
-            <table id="tablaInv">
-                <thead>
-                    <tr>
-                        <th>Título</th><th>Autor</th><th>Págs</th><th>Est.</th><th>Inv.</th><th>Sug.</th><th>Mín.</th><th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-    </div>
+        <div id="col-der">
+            <div class="stats-grid">
+                <div class="stat-card"><small>Estante</small><span id="statEstante">0</span></div>
+                <div class="stat-card"><small>Ganancia</small><span id="statGanancia" style="color:var(--s)">$0</span></div>
+                <div class="stat-card"><small>Comis.</small><span id="statComisiones" style="color:var(--err)">$0</span></div>
+                <div class="stat-card"><small>Anterior</small><span id="statMesPasado">$0</span></div>
+            </div>
 
-    <div class="card">
-        <h3>💰 Historial de Ventas</h3>
-        <div class="scroll-area">
-            <table id="tablaVentas">
-                <thead>
-                    <tr>
-                        <th>Fecha</th><th>Libro</th><th>Venta</th><th>Neta</th><th>Com.</th><th>Pago</th><th>Días</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-        <div class="row" style="margin-top:15px">
-            <button class="btn" style="background:#eee" onclick="exportarCSV('inventario')">Excel Inv.</button>
-            <button class="btn" style="background:#eee" onclick="exportarCSV('ventas')">Excel Ventas</button>
-        </div>
-        <button class="btn" style="background:var(--err); color:white; font-size:0.7rem" onclick="cierreMensual()">🔒 CIERRE DE MES</button>
-    </div>
+            <div class="card">
+                <h3>📦 Inventario Activo</h3>
+                <input type="text" id="filtro" placeholder="🔍 Filtrar..." onkeyup="render()">
+                <div class="scroll-area">
+                    <table id="tablaInv">
+                        <thead>
+                            <tr>
+                                <th>Título</th><th>Autor</th><th>Págs</th><th>Est.</th><th>Inv.</th><th>Sug.</th><th>Mín.</th><th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
 
-    <div style="text-align:center; padding: 20px; font-size: 0.6rem; color: #999;">
-        <span id="storageText">MEMORIA: 0%</span>
-        <div style="height:2px; background:#eee; margin-top:5px;"><div id="storageFill" style="height:100%; background:var(--p); width:0%;"></div></div>
+            <div class="card">
+                <h3>💰 Historial de Ventas</h3>
+                <div class="scroll-area">
+                    <table id="tablaVentas">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th><th>Libro</th><th>Venta</th><th>Neta</th><th>Com.</th><th>Pago</th><th>Días</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="row" style="margin-top:15px">
+                    <button class="btn" style="background:#eee" onclick="exportarCSV('inventario')">Excel Inv.</button>
+                    <button class="btn" style="background:#eee" onclick="exportarCSV('ventas')">Excel Ventas</button>
+                </div>
+                <button class="btn" style="background:var(--err); color:white; font-size:0.7rem" onclick="cierreMensual()">🔒 CIERRE DE MES</button>
+            </div>
+
+            <div style="text-align:center; padding: 20px; font-size: 0.6rem; color: #999;">
+                <span id="storageText">MEMORIA: 0%</span>
+                <div style="height:2px; background:#eee; margin-top:5px;"><div id="storageFill" style="height:100%; background:var(--p); width:0%;"></div></div>
+            </div>
+        </div>
     </div>
 
 <script>
+    function cambiarEntorno() {
+        const env = document.getElementById('envSelector').value;
+        const viewport = document.getElementById('viewport');
+        if (env === 'iphone') {
+            viewport.classList.add('iphone-view');
+        } else {
+            viewport.classList.remove('iphone-view');
+        }
+    }
+
+    // --- LOGICA ORIGINAL (SIN MODIFICACIONES) ---
     let inventario = JSON.parse(localStorage.getItem('LUL_inv')) || [];
     let ventas = JSON.parse(localStorage.getItem('LUL_ven')) || [];
     let mesPasado = localStorage.getItem('LUL_last') || 0;
@@ -153,15 +214,12 @@
         let mult = 1.0;
         if(document.getElementById('popular').checked) mult += 0.2;
         if(document.getElementById('raro').checked) mult += 0.5;
-
         const invTotal = c + ein;
         const sugerido = Math.ceil((invTotal / (1 - marg - com)) * mult * est);
         const minimo = Math.ceil(invTotal / (1 - com));
-
         document.getElementById('vSugerido').innerText = `$${sugerido}`;
         document.getElementById('vMinimo').innerText = `$${minimo}`;
         document.getElementById('preViewArea').style.display = 'block';
-
         temp = {
             id: Date.now(), titulo: document.getElementById('titulo').value, autor: document.getElementById('autor').value,
             paginas: parseInt(document.getElementById('paginas').value) || 0, estado: parseInt(document.getElementById('estado').value) || 5,
@@ -188,25 +246,53 @@
         l.minimo = Math.ceil((l.costo+l.envio) / (1 - (l.comision_plat/100)));
         save(); render();
     }
-
+    //Título    Autor   Págs    Est.    Inv.    Sug.    Mín.    Acción
+    //LUL_inv:"[{"id":1774630822793,
+    //"titulo":"El resplandor",
+    //"autor":"Stephen king",
+    //"paginas":890,
+    //"estado":8,
+    //"costo":50,
+    //"envio":0,
+    //"margen":40,
+    //"comision_plat":0,
+    //"comision_tc":1.75,
+    //"importado":false,
+    //"sugerido":81,
+    //"minimo":50,
+    //"fecha":"2026-03-27T17:00:22.793Z"}]"
     function vender(id) {
         const idx = inventario.findIndex(l => l.id === id);
         const l = inventario[idx];
         const pReal = prompt(`Venta final ${l.titulo}:`, l.sugerido);
         if(!pReal) return;
-        const met = prompt("E - Efectivo / C - Tarjeta", "E").toUpperCase();
+        const met = prompt("E - Efectivo / T - Transferencia / C - Tarjeta", "E").toUpperCase();
         const comPlat = pReal * (l.comision_plat / 100);
         const comBanco = (met === 'C') ? pReal * (l.comision_tc / 100) : 0;
-
+        let metodo_en_letras = "";
+        switch(met) {
+          case "E": metodo_en_letras = "Efectivo"; break;// termina aqui
+          case "C": metodo_en_letras = "Tarjeta"; break;
+          case "T": metodo_en_letras = "Transferencia"; break;
+      }
         ventas.push({
             titulo: l.titulo, p_venta: parseFloat(pReal), costoTot: l.costo + l.envio,
-            comisionTotal: comPlat + comBanco, metodo: met === 'C' ? 'TARJETA' : 'EFECTIVO',
+            autor: l.autor, estado: l.estado, paginas: l.paginas, margen: l.margen, importado: l.importado,
+           // comisionTotal: comPlat + comBanco, metodo: met === 'C' ? 'TARJETA' : 'EFECTIVO',
+           comisionTotal: comPlat + comBanco, metodo: metodo_en_letras,
             neta: pReal - (l.costo + l.envio) - (comPlat + comBanco),
             fecha: new Date().toLocaleDateString(),
             dias: Math.max(1, Math.ceil((new Date() - new Date(l.fecha)) / (1000*60*60*24)))
         });
         inventario.splice(idx, 1);
         save(); render();
+    }
+
+    function borrar_libro_de_inventario(id) {
+        let idx = inventario.findIndex(l => l.id === id);
+        inventario.splice(idx, 1);
+        save(); render();
+        // body...
     }
 
     function copiarPost(id) {
@@ -231,10 +317,11 @@
                 <td style="color:var(--err);font-size:0.75em">$${l.minimo}</td>
                 <td style="white-space:nowrap">
                     <button class="btn-action" onclick="copiarPost(${l.id})">📝</button>
+                    <button class="btn-action" style="background:var(--p);color:black" onclick="borrar_libro_de_inventario(${l.id})">❌</button>
                     <button class="btn-action" style="background:var(--s);color:white" onclick="vender(${l.id})">💰</button>
+                    
                 </td>
             </tr>`).join('');
-
         const venB = document.querySelector("#tablaVentas tbody");
         venB.innerHTML = ventas.map(v => `
             <tr>
@@ -242,7 +329,6 @@
                 <td style="color:var(--s);font-weight:bold">$${v.neta.toFixed(0)}</td>
                 <td style="color:var(--err)">$${v.comisionTotal.toFixed(1)}</td><td><span class="metodo-badge">${v.metodo}</span></td><td>${v.dias}d</td>
             </tr>`).reverse().join('');
-
         document.getElementById('statEstante').innerText = inventario.length;
         document.getElementById('statGanancia').innerText = `$${ventas.reduce((acc, v) => acc + v.neta, 0).toFixed(0)}`;
         document.getElementById('statComisiones').innerText = `$${ventas.reduce((acc, v) => acc + v.comisionTotal, 0).toFixed(0)}`;
@@ -250,9 +336,26 @@
         checkMem();
     }
 
+
+
+/*
+-titulo: l.titulo, 
+p_venta: parseFloat(pReal), 
+costoTot: l.costo + l.envio,
+-autor: l.autor, 
+-estado: l.estado,
+-paginas: l.paginas, 
+-importado
+-margen: l.margen,
+comisionTotal: comPlat + comBanco, 
+metodo: met === 'C' ? 'TARJETA' : 'EFECTIVO',
+neta: pReal - (l.costo + l.envio) - (comPlat + comBanco),
+fecha: new Date().toLocaleDateString(),
+dias: Math.max(1, Math.ceil((new Date() - new Date(l.fecha)) / (1000*60*60*24)))
+ */
     function exportarCSV(tipo) {
         let csv = tipo === 'inventario' ? "Titulo,Autor,Sugerido\n"+inventario.map(l=>`"${l.titulo}","${l.autor}",${l.sugerido}`).join("\n") 
-                                        : "Fecha,Titulo,Neta,Metodo\n"+ventas.map(v=>`${v.f},"${v.titulo}",${v.neta},${v.metodo}`).join("\n");
+                                        : "Titulo,Autor,Estado,Pags,Importado,Margen_original,Dias_en_estante,Comisiones,Neta,Metodo\n"+ventas.map(v=>`"${v.titulo}","${v.autor}","${v.estado}","${v.paginas}","${v.importado}",${v.margen},${v.dias},${v.comisionTotal},${v.neta},${v.metodo}`).join("\n");
         const b = new Blob(["\ufeff"+csv], {type:'text/csv;charset=utf-8;'});
         const a = document.createElement('a'); a.href=URL.createObjectURL(b); a.download=`${tipo}_LUL.csv`; a.click();
     }
