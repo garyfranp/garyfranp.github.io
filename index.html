@@ -8,6 +8,7 @@
     <meta name="apple-mobile-web-app-title" content="La Ultima">
     <link rel="apple-touch-icon" href="tester2.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="temas.css">
     
     <title>La Última Librería - Admin</title>
     <style>
@@ -131,6 +132,11 @@
                 <option value="desktop">🖥️ Escritorio</option>
                 <option value="iphone">📱 iPhone 6s/9s</option>
             </select>
+                    <select id="themeSelector" onchange="cambiarTema()" style="width: 100%; font-size: 0.7rem; padding: 6px;">
+        <option value="">⚪ Tema Original</option>
+        <option value="tema-phosphor-mc">📟 Phosphor (Verde)</option>
+        <option value="tema-classic-mc">🔵 Classic MC (Azul)</option>
+    </select>
         </div>
 
                 <!-- termina vloque opcion integrada en la ultima revision 27 mar 1:00pm -->
@@ -417,6 +423,18 @@ dias: Math.max(1, Math.ceil((new Date() - new Date(l.fecha)) / (1000*60*60*24)))
         localStorage.setItem('LUL_ven', JSON.stringify(ventas));
     }
     render();
+
+    function cambiarTema() {
+    const temaSeleccionado = document.getElementById('themeSelector').value;
+    
+    // Eliminamos cualquier clase de tema previa
+    document.body.classList.remove('tema-phosphor-mc', 'tema-classic-mc');
+    
+    // Si hay un tema seleccionado, lo aplicamos al body
+    if (temaSeleccionado) {
+        document.body.classList.add(temaSeleccionado);
+    }
+    }
 </script>
 </body>
 </html>
