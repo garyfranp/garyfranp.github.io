@@ -1,0 +1,28 @@
+/* --- TEMA 1: PHOSPHOR-MC (Verde Monocromo) --- */
+body.tema-phosphor-mc {
+    --bg: #000000; --card-bg: #000000; --p: #00FF00; --s: #008800; 
+    --err: #FFAA00; --text: #00FF00; --info: #00FFFF;
+}
+
+.tema-phosphor-mc, .tema-phosphor-mc * { font-family: 'Courier New', Courier, monospace !important; }
+.tema-phosphor-mc .card { background: var(--card-bg); border: 2px solid var(--p); border-radius: 0; }
+.tema-phosphor-mc h3 { background: var(--p); color: #000; text-align: center; padding: 5px; }
+.tema-phosphor-mc input { background: #002200; border: 1px solid var(--p); color: var(--p); border-radius: 0; }
+.tema-phosphor-mc .btn-p { background: var(--p); color: #000; border-radius: 0; }
+.tema-phosphor-mc table { border: 1px solid var(--p); }
+.tema-phosphor-mc th { background: var(--s); color: var(--p); }
+.tema-phosphor-mc td { border: 1px solid var(--p); color: var(--p); }
+
+/* --- TEMA 2: CLASSIC-MC (Azul y Amarillo) --- */
+body.tema-classic-mc {
+    --bg: #000088; --card-bg: #000088; --p: #FFFF00; --s: #00AAAA; 
+    --err: #FF5555; --text: #FFFF00; --info: #00FFFF;
+}
+
+.tema-classic-mc, .tema-classic-mc * { font-family: 'Courier New', Courier, monospace !important; }
+.tema-classic-mc .card { background: var(--card-bg); border: 3px solid #AAAAAA; border-radius: 0; }
+.tema-classic-mc h3 { background: #AAAAAA; color: #000; text-align: center; padding: 5px; }
+.tema-classic-mc input { background: #0000AA; border: 1px solid #AAAAAA; color: var(--p); border-radius: 0; }
+.tema-classic-mc .btn-p { background: var(--p); color: #000088; border-radius: 0; }
+.tema-classic-mc th { background: #0000AA; color: var(--p); border-bottom: 2px solid white; }
+.tema-classic-mc td { border: 1px solid white; color: var(--p); }
